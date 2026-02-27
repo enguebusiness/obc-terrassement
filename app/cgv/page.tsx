@@ -1,136 +1,111 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Navbar from "@/components/marketing/Navbar";
+import Footer from "@/components/marketing/Footer";
 
 export const metadata: Metadata = {
-  title: "Conditions Générales de Vente",
+  title: "Conditions Générales de Vente | OBC Maçonnerie",
   description:
-    "CGV de HookLab - Conditions générales de vente pour les prestations de création de sites internet et référencement.",
-  alternates: {
-    canonical: "https://hooklab.eu/cgv",
-  },
+    "Conditions générales de vente d'OBC Maçonnerie — Benoît Colin, maçon à Mouchin (59310). Prestations de construction, rénovation et gros œuvre.",
+  alternates: { canonical: "https://obc-maconnerie.fr/cgv" },
+  robots: { index: false, follow: false },
 };
 
 export default function CGV() {
   return (
-    <main className="min-h-screen py-20 md:py-32 bg-dark">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <Link href="/" className="inline-flex items-center gap-2 mb-10 text-white/40 hover:text-white text-sm transition-colors">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <main id="main-content" className="min-h-screen bg-bg">
+      <Navbar />
+
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+        <Link href="/" className="inline-flex items-center gap-2 mb-8 text-text-light hover:text-navy text-sm transition-colors group">
+          <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
           Retour à l&apos;accueil
         </Link>
 
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-10">Conditions Générales de Vente</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-navy mb-10">Conditions Générales de Vente</h1>
 
-        <div className="space-y-8 text-white/70 text-sm leading-relaxed">
+        <div className="space-y-8 text-text-light text-sm leading-relaxed">
+
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">Article 1 - Objet</h2>
+            <h2 className="text-lg font-bold text-navy mb-3">Article 1 — Objet</h2>
             <p>
-              Les présentes Conditions Générales de Vente (CGV) régissent la vente du programme de formation
-              en ligne &ldquo;HookLab&rdquo; proposé par Enguerrand Ozano, entrepreneur individuel, SIREN 994 538 932,
-              situé au 35 rue Moïse Lambert, 59148 Flines-lez-Raches, France.
+              Les présentes Conditions Générales de Vente (CGV) régissent les prestations de travaux de maçonnerie, construction, rénovation, assainissement, création d&apos;accès et démolition proposées par <strong className="text-text">OBC Maçonnerie</strong>, entreprise individuelle dirigée par Benoît COLIN, SIREN 531 827 871, dont le siège est situé au 221 Route de Saint-Amand, 59310 Mouchin.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">Article 2 - Description du service</h2>
+            <h2 className="text-lg font-bold text-navy mb-3">Article 2 — Devis et commandes</h2>
             <p>
-              HookLab est un programme de coaching en ligne d&apos;une durée de 8 semaines, comprenant :
+              Toute prestation fait l&apos;objet d&apos;un devis préalable gratuit. Le devis est établi après visite du chantier. Il est valable 30 jours à compter de sa date d&apos;émission. La signature du devis par le client vaut acceptation des présentes CGV et commande ferme.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">Article 3 — Prix et paiement</h2>
+            <p>
+              Les prix sont indiqués hors taxes ou TTC selon le régime fiscal applicable. Un acompte de 30% peut être demandé à la commande, le solde étant payable à la réception des travaux. En cas de retard de paiement, des pénalités de retard seront appliquées conformément aux dispositions légales.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">Article 4 — Délais d&apos;exécution</h2>
+            <p>
+              Les délais d&apos;exécution sont communiqués à titre indicatif dans le devis. OBC Maçonnerie s&apos;engage à respecter les délais convenus sauf cas de force majeure, conditions météorologiques défavorables ou retard imputable au client ou à des tiers.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-lg font-bold text-navy mb-3">Article 5 — Garanties</h2>
+            <p>
+              OBC Maçonnerie est couvert par les garanties légales applicables aux travaux de construction :
             </p>
             <ul className="mt-3 space-y-1 list-disc list-inside">
-              <li>Des modules vidéo hebdomadaires</li>
-              <li>Des appels de groupe hebdomadaires</li>
-              <li>Un support WhatsApp illimité</li>
-              <li>L&apos;accès à une communauté privée d&apos;entrepreneurs</li>
-              <li>Des templates et scripts de contenu</li>
-              <li>Une certification HookLab</li>
+              <li><strong className="text-text">Garantie décennale</strong> : couvre les dommages compromettant la solidité de l&apos;ouvrage pendant 10 ans.</li>
+              <li><strong className="text-text">Garantie biennale</strong> : couvre les éléments d&apos;équipement dissociables pendant 2 ans.</li>
+              <li><strong className="text-text">Garantie de parfait achèvement</strong> : couvre les défauts signalés à la réception pendant 1 an.</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">Article 3 - Prix et modalités de paiement</h2>
+            <h2 className="text-lg font-bold text-navy mb-3">Article 6 — Responsabilité</h2>
             <p>
-              Le prix du programme est de <strong className="text-white">980€ TTC</strong>, payable en 2 mensualités
-              de 490€. Le premier paiement est exigé lors de l&apos;inscription et donne accès immédiat au programme.
-              Le second paiement est prélevé automatiquement 30 jours après le premier.
-            </p>
-            <p className="mt-3">
-              TVA applicable : FR16994538932. Les paiements sont sécurisés via la plateforme Stripe.
+              OBC Maçonnerie est assuré en responsabilité civile professionnelle et décennale. La responsabilité d&apos;OBC Maçonnerie ne saurait être engagée pour des dommages résultant d&apos;une utilisation non conforme des ouvrages réalisés ou d&apos;une intervention de tiers après réception.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">Article 4 - Processus de candidature</h2>
+            <h2 className="text-lg font-bold text-navy mb-3">Article 7 — Réception des travaux</h2>
             <p>
-              L&apos;accès au programme est soumis à la validation d&apos;un formulaire de candidature. L&apos;éditeur
-              se réserve le droit de refuser toute candidature sans avoir à en justifier les raisons. En cas de
-              refus, aucun paiement n&apos;est effectué.
+              La réception des travaux est prononcée contradictoirement entre OBC Maçonnerie et le client. Elle fait l&apos;objet d&apos;un procès-verbal. Les réserves éventuelles y sont consignées et levées dans les délais convenus.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">Article 5 - Droit de rétractation</h2>
-            <p>
-              Conformément à l&apos;article L221-18 du Code de la consommation, le client dispose d&apos;un délai de
-              <strong className="text-white"> 14 jours</strong> à compter de la date d&apos;achat pour exercer son droit
-              de rétractation, sans avoir à justifier de motifs ni à payer de pénalités.
-            </p>
-            <p className="mt-3">
-              Pour exercer ce droit, le client doit envoyer un email à <strong className="text-white">contact@hooklab.fr</strong> en
-              indiquant sa volonté de se rétracter. Le remboursement sera effectué dans un délai de 14 jours
-              suivant la réception de la demande.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-3">Article 6 - Accès au programme</h2>
-            <p>
-              L&apos;accès au programme est personnel et non cessible. Le client s&apos;engage à ne pas partager ses
-              identifiants de connexion ni le contenu du programme avec des tiers. Tout manquement à cette
-              obligation pourra entraîner la résiliation immédiate de l&apos;accès sans remboursement.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-3">Article 7 - Limitation de responsabilité</h2>
-            <p>
-              HookLab est un programme de formation et de coaching. Les résultats obtenus dépendent de
-              l&apos;implication et des actions de chaque participant. Aucune garantie de revenus n&apos;est formulée.
-              Les témoignages présentés sur le site sont des exemples individuels et ne constituent pas une
-              promesse de résultats similaires.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-white mb-3">Article 8 - Protection des données</h2>
+            <h2 className="text-lg font-bold text-navy mb-3">Article 8 — Données personnelles</h2>
             <p>
               Les données personnelles collectées sont traitées conformément à notre{" "}
-              <Link href="/confidentialite" className="text-primary hover:underline">
-                Politique de confidentialité
+              <Link href="/confidentialite" className="text-orange hover:underline">
+                politique de confidentialité
               </Link>.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold text-white mb-3">Article 9 - Droit applicable et litiges</h2>
+            <h2 className="text-lg font-bold text-navy mb-3">Article 9 — Droit applicable et litiges</h2>
             <p>
-              Les présentes CGV sont soumises au droit français. En cas de litige, une solution amiable sera
-              recherchée avant toute action judiciaire. À défaut, les tribunaux compétents seront ceux du
-              ressort du siège social de l&apos;éditeur.
-            </p>
-            <p className="mt-3">
-              Conformément à l&apos;article L612-1 du Code de la consommation, le consommateur peut recourir
-              gratuitement au service de médiation MEDICYS, par voie électronique à{" "}
-              <span className="text-white">www.medicys.fr</span> ou par courrier.
+              Les présentes CGV sont soumises au droit français. En cas de litige, une solution amiable sera recherchée en priorité. À défaut, le tribunal compétent sera celui de Valenciennes.
             </p>
           </section>
 
-          <p className="text-white/40 pt-4 border-t border-dark-border">
-            Dernière mise à jour : février 2026
+          <p className="text-text-muted text-xs pt-4 border-t border-border">
+            Dernière mise à jour : Février 2026
           </p>
         </div>
       </div>
+
+      <Footer />
     </main>
   );
 }

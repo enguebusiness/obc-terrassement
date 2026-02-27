@@ -7,7 +7,7 @@ export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("hooklab_cookie_consent");
+    const consent = localStorage.getItem("obc_cookie_consent");
     if (!consent) {
       // Small delay so it doesn't flash on page load
       const timer = setTimeout(() => setVisible(true), 800);
@@ -16,12 +16,12 @@ export default function CookieBanner() {
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem("hooklab_cookie_consent", "accepted");
+    localStorage.setItem("obc_cookie_consent", "accepted");
     setVisible(false);
   };
 
   const handleRefuse = () => {
-    localStorage.setItem("hooklab_cookie_consent", "refused");
+    localStorage.setItem("obc_cookie_consent", "refused");
     setVisible(false);
   };
 

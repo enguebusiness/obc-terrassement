@@ -10,6 +10,10 @@
   --color-orange-hover: #D06522;
   --color-orange-light: #F5A623;
 
+  --color-stone: #8B7355;
+  --color-stone-light: #C4A882;
+  --color-stone-bg: #F5F0EA;
+
   --color-bg: #F7F8FA;
   --color-bg-white: #FFFFFF;
   --color-bg-card: #FFFFFF;
@@ -26,8 +30,8 @@
   --color-warning: #F59E0B;
   --color-error: #EF4444;
 
-  --color-primary: #6D5EF6;
-  --color-primary-hover: #5B4FDB;
+  --color-primary: #E8772E;
+  --color-primary-hover: #D06522;
 
   --color-dark: #0B0F19;
   --color-dark-bg: #0B0F19;

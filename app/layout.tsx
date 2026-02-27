@@ -2,38 +2,37 @@ import type { Metadata } from "next";
 import CookieBanner from "@/components/CookieBanner";
 import "./globals.css";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://hooklab.eu";
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://obc-maconnerie.fr";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default:
-      "Cr\u00e9ation Site Internet Artisan & BTP Nord (59) | HookLab Flines-lez-Raches",
-    template: "%s | HookLab",
+    default: "OBC Maçonnerie | Constructeur & Maçon à Orchies (Nord 59)",
+    template: "%s | OBC Maçonnerie",
   },
   description:
-    "Sp\u00e9cialiste web pour artisans du b\u00e2timent et paysagistes \u00e0 Douai, Orchies, Valenciennes. Site ultra-rapide, s\u00e9curis\u00e9 et con\u00e7u pour g\u00e9n\u00e9rer des chantiers qualifi\u00e9s. Audit offert.",
+    "Benoît Colin, maçon expert à Mouchin. Construction de maison, rénovation, assainissement et gros œuvre dans un rayon de 30km autour d'Orchies. Devis gratuit.",
   keywords: [
-    "site web artisan",
-    "cr\u00e9ation site artisan b\u00e2timent",
-    "r\u00e9f\u00e9rencement local artisan",
-    "agence web Nord",
-    "site internet couvreur",
-    "site internet menuisier",
-    "site internet paysagiste",
-    "visibilit\u00e9 Google artisan",
-    "site web Douai",
-    "site web Valenciennes",
-    "agence web Orchies",
-    "site pro artisan Nord",
-    "HookLab",
-    "hooklab.eu",
-    "cr\u00e9ation site internet Nord",
-    "site internet artisan 59",
+    "construction maison Nord",
+    "maçon construction maison Orchies",
+    "rénovation maison Nord 59",
+    "entreprise maçonnerie Mouchin",
+    "fondation ossature bois Nord",
+    "assainissement maison Nord",
+    "création accès maison Nord",
+    "démolition maison Nord 59",
+    "maçon rénovation Douai",
+    "maçon rénovation Valenciennes",
+    "gros œuvre Nord",
+    "entrepreneur maçon Nord 59",
+    "OBC Maçonnerie",
+    "Benoît Colin maçon",
+    "maçon Mouchin",
+    "construction maison Orchies",
   ],
-  authors: [{ name: "HookLab - Enguerrand Ozano" }],
-  creator: "HookLab",
-  publisher: "HookLab",
+  authors: [{ name: "OBC Maçonnerie - Benoît Colin" }],
+  creator: "OBC Maçonnerie",
+  publisher: "OBC Maçonnerie",
   robots: {
     index: true,
     follow: true,
@@ -46,9 +45,7 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     apple: [
       { url: "/apple-touch-icon.svg", type: "image/svg+xml", sizes: "180x180" },
     ],
@@ -58,26 +55,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     url: BASE_URL,
-    siteName: "HookLab",
-    title:
-      "HookLab | Sites web pour artisans du b\u00e2timent dans le Nord",
+    siteName: "OBC Maçonnerie",
+    title: "OBC Maçonnerie | Constructeur & Maçon dans le Nord (59)",
     description:
-      "Transformez votre bouche-\u00e0-oreille en syst\u00e8me automatique. Sites web et r\u00e9f\u00e9rencement Google pour artisans \u00e0 Douai, Orchies, Valenciennes.",
+      "Construction de maison, rénovation, assainissement et gros œuvre autour d'Orchies, Douai, Valenciennes. Benoît Colin vous accompagne de A à Z.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "HookLab - Sites web pour artisans du Nord",
+        alt: "OBC Maçonnerie - Construction et rénovation dans le Nord",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "HookLab | Sites web pour artisans du Nord",
+    title: "OBC Maçonnerie | Maçon constructeur dans le Nord (59)",
     description:
-      "Agence web locale pour artisans du b\u00e2timent. Douai, Orchies, Valenciennes.",
-    images: ["/og-image.png"],
+      "Construction de maison, rénovation, assainissement. Orchies, Douai, Valenciennes.",
+    images: ["/og-image.jpg"],
   },
   alternates: {
     canonical: BASE_URL,
@@ -92,119 +88,85 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Schema.org LocalBusiness
-  const jsonLdOrganization = {
+  const jsonLdBusiness = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": `${BASE_URL}/#organization`,
-    name: "HookLab",
+    "@id": `${BASE_URL}/#business`,
+    name: "OBC Maçonnerie",
+    description:
+      "Construction de maison, rénovation, assainissement et gros œuvre dans le Nord",
+    telephone: "06 74 45 30 89",
+    email: "contact@obc-maconnerie.fr",
     url: BASE_URL,
     logo: `${BASE_URL}/icon-512.svg`,
-    image: `${BASE_URL}/og-image.png`,
-    description:
-      "Agence web sp\u00e9cialis\u00e9e dans la cr\u00e9ation de sites et la visibilit\u00e9 Google pour les artisans du b\u00e2timent dans le Nord.",
-    telephone: "+33604408157",
-    email: "contact@hooklab.eu",
+    image: `${BASE_URL}/og-image.jpg`,
+    priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "35 rue Mo\u00efse Lambert",
-      addressLocality: "Flines-lez-Raches",
-      postalCode: "59148",
+      streetAddress: "221 Route de Saint-Amand",
+      addressLocality: "Mouchin",
+      postalCode: "59310",
       addressRegion: "Hauts-de-France",
       addressCountry: "FR",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 50.4267,
-      longitude: 3.2372,
+      latitude: 50.4817,
+      longitude: 3.3342,
     },
     areaServed: [
-      { "@type": "City", name: "Douai" },
       { "@type": "City", name: "Orchies" },
+      { "@type": "City", name: "Mouchin" },
+      { "@type": "City", name: "Douai" },
       { "@type": "City", name: "Valenciennes" },
-      { "@type": "City", name: "Arleux" },
-      { "@type": "City", name: "Flines-lez-Raches" },
+      { "@type": "City", name: "Flines-lès-Raches" },
       { "@type": "City", name: "Saint-Amand-les-Eaux" },
-      { "@type": "City", name: "Denain" },
+      { "@type": "City", name: "Château-l'Abbaye" },
+      { "@type": "City", name: "Mérignies" },
     ],
-    priceRange: "$$",
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Services de maçonnerie",
+      itemListElement: [
+        { "@type": "Offer", "name": "Construction de maison" },
+        { "@type": "Offer", "name": "Rénovation" },
+        { "@type": "Offer", "name": "Assainissement" },
+        { "@type": "Offer", "name": "Création d'accès" },
+        { "@type": "Offer", "name": "Démolition" },
+      ],
+    },
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "09:00",
-      closes: "18:00",
+      opens: "07:00",
+      closes: "19:00",
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+33604408157",
+      telephone: "06 74 45 30 89",
       contactType: "customer service",
       availableLanguage: "French",
+    },
+    founder: {
+      "@type": "Person",
+      name: "Benoît Colin",
+      jobTitle: "Maçon - Gérant OBC Maçonnerie",
     },
     sameAs: [],
   };
 
-  // Schema.org WebSite - aide Google à afficher le nom du site et les sitelinks
   const jsonLdWebSite = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${BASE_URL}/#website`,
-    name: "HookLab",
-    alternateName: "HookLab Tech",
+    name: "OBC Maçonnerie",
     url: BASE_URL,
     description:
-      "Cr\u00e9ation de sites internet et r\u00e9f\u00e9rencement Google pour artisans du b\u00e2timent dans le Nord (59).",
+      "Site officiel d'OBC Maçonnerie, entreprise de construction et rénovation dans le Nord (59).",
     publisher: {
-      "@id": `${BASE_URL}/#organization`,
+      "@id": `${BASE_URL}/#business`,
     },
     inLanguage: "fr-FR",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${BASE_URL}/?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
-  };
-
-  // Schema.org SiteNavigationElement - signale les pages principales à Google
-  const jsonLdNavigation = {
-    "@context": "https://schema.org",
-    "@type": "SiteNavigationElement",
-    "@id": `${BASE_URL}/#navigation`,
-    name: "Navigation principale",
-    hasPart: [
-      {
-        "@type": "WebPage",
-        name: "Accueil",
-        url: BASE_URL,
-      },
-      {
-        "@type": "WebPage",
-        name: "D\u00e9mo Ma\u00e7on / Couvreur",
-        url: `${BASE_URL}/macon`,
-      },
-      {
-        "@type": "WebPage",
-        name: "D\u00e9mo Paysagiste",
-        url: `${BASE_URL}/paysagiste`,
-      },
-      {
-        "@type": "WebPage",
-        name: "D\u00e9mo Plombier",
-        url: `${BASE_URL}/plombier`,
-      },
-      {
-        "@type": "WebPage",
-        name: "Mentions L\u00e9gales",
-        url: `${BASE_URL}/mentions-legales`,
-      },
-      {
-        "@type": "WebPage",
-        name: "Politique de Confidentialit\u00e9",
-        url: `${BASE_URL}/confidentialite`,
-      },
-    ],
   };
 
   return (
@@ -216,7 +178,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([jsonLdOrganization, jsonLdWebSite, jsonLdNavigation]),
+            __html: JSON.stringify([jsonLdBusiness, jsonLdWebSite]),
           }}
         />
       </head>

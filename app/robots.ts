@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://hooklab.eu";
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://obc-maconnerie.fr";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/api/", "/setup-admin/", "/dashboard/", "/profil/", "/formations/", "/login/", "/register/", "/candidature/"],
+        disallow: ["/api/"],
       },
     ],
     sitemap: `${BASE_URL}/sitemap.xml`,
