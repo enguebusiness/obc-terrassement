@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Rénovation de maison et appartement à Orchies. OBC Maçonnerie, maçon expert en rénovation dans le Nord (59). Devis gratuit.",
   keywords: ["rénovation maison Orchies", "maçon rénovation Orchies", "rénovation appartement Orchies"],
-  alternates: { canonical: "https://obc-maconnerie.fr/renovation-maison-orchies" },
+  alternates: { canonical: "https://obc-terrassement.fr/renovation-maison-orchies" },
 };
 
 export default function RenovationMaisonOrchiesPage() {

@@ -4,8 +4,12 @@ import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import ContactForm from "@/components/marketing/ContactForm";
+import { getSiteConfig } from "@/lib/content";
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+  return {
+
   title: "Assainissement Maison Nord 59 | OBC Maçonnerie",
   description:
     "Création et mise aux normes de systèmes d'assainissement dans le Nord (59). OBC Maçonnerie intervient à Orchies, Douai, Valenciennes et alentours. Devis gratuit.",
@@ -17,8 +21,9 @@ export const metadata: Metadata = {
     "assainissement Orchies",
     "assainissement Douai",
   ],
-  alternates: { canonical: "https://obc-maconnerie.fr/assainissement" },
-};
+  alternates: { canonical: `${config.url}/assainissement` },
+  };
+}
 
 const prestations = [
   { icon: "🔍", title: "Diagnostic", desc: "Analyse de votre installation existante et vérification de sa conformité aux normes en vigueur." },
@@ -29,7 +34,9 @@ const prestations = [
   { icon: "💧", title: "Raccordement réseau", desc: "Connexion au réseau d'assainissement collectif lorsque celui-ci est disponible." },
 ];
 
-export default function AssainissementPage() {
+export default async function AssainissementPage() {
+  const config = await getSiteConfig();
+  const { phone, phoneRaw } = config;
   return (
     <main id="main-content" className="min-h-screen">
       <Navbar />
@@ -55,9 +62,7 @@ export default function AssainissementPage() {
                 <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-hover text-white font-bold px-7 py-3.5 rounded-xl transition-colors pulse-glow">
                   Demander un devis gratuit
                 </Link>
-                <a href="tel:0674453089" className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors border border-white/20">
-                  06 74 45 30 89
-                </a>
+                <a href={`tel:${phoneRaw}`} className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors border border-white/20">{phone}</a>
               </div>
             </ScrollReveal>
           </div>

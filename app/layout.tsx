@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import CookieBanner from "@/components/CookieBanner";
+import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://obc-maconnerie.fr";
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || siteConfig.url;
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -95,8 +96,8 @@ export default function RootLayout({
     name: "OBC Maçonnerie",
     description:
       "Construction de maison, rénovation, assainissement et gros œuvre dans le Nord",
-    telephone: "06 74 45 30 89",
-    email: "contact@obc-maconnerie.fr",
+    telephone: siteConfig.phone,
+    email: siteConfig.email,
     url: BASE_URL,
     logo: `${BASE_URL}/icon-512.svg`,
     image: `${BASE_URL}/og-image.jpg`,
@@ -143,7 +144,7 @@ export default function RootLayout({
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "06 74 45 30 89",
+      telephone: siteConfig.phone,
       contactType: "customer service",
       availableLanguage: "French",
     },

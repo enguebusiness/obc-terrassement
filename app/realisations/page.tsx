@@ -3,62 +3,24 @@ import Link from "next/link";
 import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import { getRealisations, getSiteConfig } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Nos Réalisations | Chantiers OBC Maçonnerie Nord",
-  description:
-    "Découvrez les réalisations d'OBC Maçonnerie : constructions de maisons, rénovations, assainissement et créations d'accès dans le Nord (59). Galerie photos.",
-  alternates: { canonical: "https://obc-maconnerie.fr/realisations" },
-};
-
-const realisations = [
-  {
-    categorie: "Construction neuve",
-    titre: "Maison individuelle à Orchies",
-    desc: "Construction d'une maison de 130 m² — fondations, gros œuvre, dalle béton et ossature.",
-    zone: "Orchies (59)",
-    color: "bg-navy",
-  },
-  {
-    categorie: "Rénovation",
-    titre: "Rénovation complète à Douai",
-    desc: "Restructuration intérieure complète d'une maison de ville : abattage de cloisons, création d'un escalier neuf, doublages.",
-    zone: "Douai (59)",
-    color: "bg-stone",
-  },
-  {
-    categorie: "Assainissement",
-    titre: "Mise aux normes à Saint-Amand",
-    desc: "Remplacement d'une fosse septique vétuste par une micro-station d'épuration conforme aux normes.",
-    zone: "Saint-Amand-les-Eaux (59)",
-    color: "bg-navy-light",
-  },
-  {
-    categorie: "Création d'accès",
-    titre: "Entrée en béton imprimé à Mérignies",
-    desc: "Création d'une entrée de propriété en béton imprimé effet pavés, avec caniveau de drainage.",
-    zone: "Mérignies (59)",
-    color: "bg-orange",
-  },
-  {
-    categorie: "Construction neuve",
-    titre: "Extension ossature bois à Flines",
-    desc: "Agrandissement d'une maison existante par extension ossature bois, fondations et dalle.",
-    zone: "Flines-lès-Raches (59)",
-    color: "bg-navy",
-  },
-  {
-    categorie: "Démolition",
-    titre: "Démolition & reconstruction à Valenciennes",
-    desc: "Démolition d'un bâtiment annexe et curage d'une grange pour préparer une rénovation complète.",
-    zone: "Valenciennes (59)",
-    color: "bg-stone",
-  },
-];
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+  return {
+    title: "Nos Réalisations | Chantiers OBC Maçonnerie Nord",
+    description:
+      "Découvrez les réalisations d'OBC Maçonnerie : constructions de maisons, rénovations, assainissement et créations d'accès dans le Nord (59). Galerie photos.",
+    alternates: { canonical: `${config.url}/realisations` },
+  };
+}
 
 const cats = ["Tous", "Construction neuve", "Rénovation", "Assainissement", "Création d'accès", "Démolition"];
 
-export default function RealisationsPage() {
+export default async function RealisationsPage() {
+  const [realisations, config] = await Promise.all([getRealisations(), getSiteConfig()]);
+  const { phone, phoneRaw } = config;
+
   return (
     <main id="main-content" className="min-h-screen">
       <Navbar />
@@ -100,7 +62,7 @@ export default function RealisationsPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {realisations.map((r, i) => (
-              <ScrollReveal key={r.titre} direction="up" delay={i * 80}>
+              <ScrollReveal key={r.title} direction="up" delay={i * 80}>
                 <div className="bg-bg-white border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-all group card-hover">
                   <div className={`${r.color} h-48 flex items-center justify-center relative`}>
                     <span className="text-white/10 text-8xl font-black">{i + 1}</span>
@@ -112,12 +74,12 @@ export default function RealisationsPage() {
                   </div>
                   <div className="p-5">
                     <h3 className="text-navy font-bold text-base mb-2 group-hover:text-orange transition-colors">
-                      {r.titre}
+                      {r.title}
                     </h3>
-                    <p className="text-text-light text-sm leading-relaxed mb-3">{r.desc}</p>
+                    <p className="text-text-light text-sm leading-relaxed mb-3">{r.description}</p>
                     <div className="flex items-center gap-1 text-text-muted text-xs">
                       <span>📍</span>
-                      <span>{r.zone}</span>
+                      <span>{r.ville}</span>
                     </div>
                   </div>
                 </div>
@@ -141,10 +103,10 @@ export default function RealisationsPage() {
                   Demander un devis gratuit
                 </Link>
                 <a
-                  href="tel:0674453089"
+                  href={`tel:${phoneRaw}`}
                   className="inline-flex items-center justify-center gap-2 border-2 border-navy text-navy hover:bg-navy hover:text-white font-bold px-7 py-3.5 rounded-xl transition-colors"
                 >
-                  06 74 45 30 89
+                  {phone}
                 </a>
               </div>
             </div>

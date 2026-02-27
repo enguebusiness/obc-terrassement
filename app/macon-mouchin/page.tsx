@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "OBC Maçonnerie est basée à Mouchin (59310). Benoît Colin, maçon expert local. Construction, rénovation, assainissement, gros œuvre. Devis gratuit.",
   keywords: ["maçon Mouchin", "entreprise maçonnerie Mouchin", "construction Mouchin", "rénovation Mouchin"],
-  alternates: { canonical: "https://obc-maconnerie.fr/macon-mouchin" },
+  alternates: { canonical: "https://obc-terrassement.fr/macon-mouchin" },
 };
 
 export default function MaconMouchinPage() {

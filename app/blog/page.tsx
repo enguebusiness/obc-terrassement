@@ -3,74 +3,23 @@ import Link from "next/link";
 import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import { getBlogPosts, getSiteConfig } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Blog Maçonnerie & Construction | Conseils OBC Maçonnerie",
-  description:
-    "Conseils, guides et actualités sur la construction de maison, la rénovation et le gros œuvre dans le Nord (59). Blog OBC Maçonnerie par Benoît Colin.",
-  alternates: { canonical: "https://obc-maconnerie.fr/blog" },
-};
-
-const articles = [
-  {
-    slug: "combien-coute-construction-maison-nord",
-    titre: "Combien coûte la construction d'une maison dans le Nord en 2025 ?",
-    extrait:
-      "Budget, matériaux, terrain, main-d'œuvre — tout ce qu'il faut savoir pour estimer le coût de votre construction neuve dans le Nord.",
-    cat: "Construction",
-    date: "15 février 2025",
-    readTime: "6 min",
-  },
-  {
-    slug: "etapes-renovation-maison-ancienne",
-    titre: "Les étapes clés d'une rénovation de maison ancienne",
-    extrait:
-      "Vous avez acheté une maison ancienne dans le Nord et vous voulez la rénover ? Voici les étapes indispensables pour réussir votre projet.",
-    cat: "Rénovation",
-    date: "8 janvier 2025",
-    readTime: "5 min",
-  },
-  {
-    slug: "assainissement-non-collectif-obligations",
-    titre: "Assainissement non collectif : vos obligations légales",
-    extrait:
-      "Contrôle SPANC, mise aux normes, vente immobilière — tout ce que vous devez savoir sur l'assainissement non collectif.",
-    cat: "Assainissement",
-    date: "20 décembre 2024",
-    readTime: "4 min",
-  },
-  {
-    slug: "ossature-bois-avantages",
-    titre: "Ossature bois : pourquoi choisir ce mode constructif ?",
-    extrait:
-      "Légèreté, performance thermique, rapidité de construction — l'ossature bois a de nombreux avantages. OBC Maçonnerie vous explique.",
-    cat: "Construction",
-    date: "5 novembre 2024",
-    readTime: "5 min",
-  },
-  {
-    slug: "travaux-renovation-sans-permis-construction",
-    titre: "Quels travaux de rénovation ne nécessitent pas de permis ?",
-    extrait:
-      "Permis de construire, déclaration préalable, simple déclaration — on vous explique les règles selon la nature de vos travaux.",
-    cat: "Rénovation",
-    date: "18 octobre 2024",
-    readTime: "4 min",
-  },
-  {
-    slug: "fondations-maison-quels-types",
-    titre: "Les différents types de fondations pour une maison",
-    extrait:
-      "Semelles filantes, radier, pieux — quelles fondations choisir selon votre terrain et votre projet de construction ?",
-    cat: "Construction",
-    date: "2 septembre 2024",
-    readTime: "5 min",
-  },
-];
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+  return {
+    title: "Blog Maçonnerie & Construction | Conseils OBC Maçonnerie",
+    description:
+      "Conseils, guides et actualités sur la construction de maison, la rénovation et le gros œuvre dans le Nord (59). Blog OBC Maçonnerie par Benoît Colin.",
+    alternates: { canonical: `${config.url}/blog` },
+  };
+}
 
 const cats = ["Tous", "Construction", "Rénovation", "Assainissement"];
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const articles = await getBlogPosts();
+
   return (
     <main id="main-content" className="min-h-screen">
       <Navbar />

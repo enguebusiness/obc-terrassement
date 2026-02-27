@@ -4,8 +4,12 @@ import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import ContactForm from "@/components/marketing/ContactForm";
+import { getSiteConfig } from "@/lib/content";
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+  return {
+
   title: "Rénovation Maison & Appartement Nord 59 | OBC Maçonnerie",
   description:
     "Rénovation complète ou partielle de maison et appartement dans le Nord. Benoît Colin vous conseille et adapte chaque projet. Devis gratuit.",
@@ -17,8 +21,9 @@ export const metadata: Metadata = {
     "rénovation maison Orchies",
     "travaux rénovation Nord",
   ],
-  alternates: { canonical: "https://obc-maconnerie.fr/renovation" },
-};
+  alternates: { canonical: `${config.url}/renovation` },
+  };
+}
 
 const typesTravaux = [
   { icon: "🏚️", title: "Rénovation complète", desc: "Restructuration totale d'une maison ancienne, de la démolition des cloisons existantes à la pose des revêtements." },
@@ -29,7 +34,9 @@ const typesTravaux = [
   { icon: "🏠", title: "Rénovation appartement", desc: "Transformation d'appartements : redistribution des pièces, mise aux normes, travaux de second œuvre." },
 ];
 
-export default function RenovationPage() {
+export default async function RenovationPage() {
+  const config = await getSiteConfig();
+  const { phone, phoneRaw } = config;
   return (
     <main id="main-content" className="min-h-screen">
       <Navbar />
@@ -55,9 +62,7 @@ export default function RenovationPage() {
                 <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-hover text-white font-bold px-7 py-3.5 rounded-xl transition-colors pulse-glow">
                   Demander un devis gratuit
                 </Link>
-                <a href="tel:0674453089" className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors border border-white/20">
-                  06 74 45 30 89
-                </a>
+                <a href={`tel:${phoneRaw}`} className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors border border-white/20">{phone}</a>
               </div>
             </ScrollReveal>
           </div>

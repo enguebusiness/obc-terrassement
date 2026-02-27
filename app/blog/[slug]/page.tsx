@@ -4,137 +4,85 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import { getBlogPost, getBlogPosts, getSiteConfig } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
 
-const articles: Record<
-  string,
-  {
-    titre: string;
-    description: string;
-    cat: string;
-    date: string;
-    readTime: string;
-    contenu: string[];
-  }
-> = {
-  "combien-coute-construction-maison-nord": {
-    titre: "Combien coûte la construction d'une maison dans le Nord en 2025 ?",
-    description:
-      "Budget, matériaux, terrain, main-d'œuvre — tout ce qu'il faut savoir pour estimer le coût de votre construction neuve dans le Nord.",
-    cat: "Construction",
-    date: "15 février 2025",
-    readTime: "6 min",
-    contenu: [
-      "La construction d'une maison individuelle dans le Nord représente un investissement significatif. En 2025, le coût moyen se situe entre 1 200 € et 1 800 € par m² hors terrain et hors raccordements, selon les matériaux choisis et la complexité du projet.",
-      "**Le prix du terrain** est souvent la première variable. Dans le secteur d'Orchies et de Mouchin, comptez entre 50 000 € et 120 000 € pour une parcelle constructible de 400 à 600 m².",
-      "**Le gros œuvre** (fondations, murs, dalle, toiture) représente environ 40 à 50% du budget total. C'est là qu'intervient OBC Maçonnerie avec son savoir-faire et son réseau de partenaires pour optimiser les coûts sans sacrifier la qualité.",
-      "**Les finitions et corps de métier** (électricité, plomberie, chauffage, isolation, menuiserie, carrelage, peinture) représentent les 50 à 60% restants.",
-      "Pour un projet de 100 m² habitable à Orchies ou Douai, un budget total entre 180 000 € et 280 000 € (hors terrain) est réaliste selon le niveau de finition souhaité.",
-      "Le meilleur conseil : contactez Benoît Colin pour une évaluation gratuite de votre projet. Il vous donnera une estimation précise adaptée à votre terrain et vos envies.",
-    ],
-  },
-  "etapes-renovation-maison-ancienne": {
-    titre: "Les étapes clés d'une rénovation de maison ancienne",
-    description:
-      "Vous avez acheté une maison ancienne dans le Nord et vous voulez la rénover ? Voici les étapes indispensables pour réussir votre projet.",
-    cat: "Rénovation",
-    date: "8 janvier 2025",
-    readTime: "5 min",
-    contenu: [
-      "Rénover une maison ancienne dans le Nord demande une méthodologie rigoureuse. Voici les grandes étapes pour mener votre projet à bien.",
-      "**1. Le diagnostic** : Avant tout, il faut évaluer l'état du bâtiment. Charpente, toiture, murs porteurs, fondations, réseaux électriques et plomberie — tout doit être passé en revue. Un maçon expérimenté comme Benoît Colin peut repérer les problèmes invisibles à l'œil nu.",
-      "**2. La démolition et le curage** : On enlève ce qui est vétuste ou inadapté — cloisons obsolètes, chapes abîmées, enduits défaillants — pour repartir sur de bonnes bases.",
-      "**3. Le gros œuvre** : Reprises de fondations si nécessaire, traitement des murs humides, création d'ouvertures, modification de la structure. C'est le cœur du métier d'OBC Maçonnerie.",
-      "**4. Les corps de métier** : Électricité, plomberie, chauffage, isolation. Grâce à son réseau de partenaires, Benoît coordonne chaque intervention dans le bon ordre.",
-      "**5. Les finitions** : Menuiseries, carrelage, peinture, revêtements de sol. La touche finale qui donne tout son caractère à votre maison rénovée.",
-      "Chaque rénovation est unique. Contactez OBC Maçonnerie pour une évaluation gratuite de votre projet.",
-    ],
-  },
-  "assainissement-non-collectif-obligations": {
-    titre: "Assainissement non collectif : vos obligations légales",
-    description:
-      "Contrôle SPANC, mise aux normes, vente immobilière — tout ce que vous devez savoir sur l'assainissement non collectif.",
-    cat: "Assainissement",
-    date: "20 décembre 2024",
-    readTime: "4 min",
-    contenu: [
-      "En France, environ 5 millions de logements sont équipés d'un assainissement non collectif (ANC). Si votre maison n'est pas raccordée au réseau public, vous êtes soumis à des obligations précises.",
-      "**Le contrôle SPANC** : Le Service Public d'Assainissement Non Collectif peut contrôler votre installation. En cas de non-conformité, vous avez en principe 4 ans pour mettre aux normes, ou moins si vous vendez le bien.",
-      "**La vente immobilière** : Depuis 2011, un diagnostic d'assainissement est obligatoire lors de toute vente. S'il révèle une non-conformité, l'acheteur doit réaliser les travaux dans l'année suivant l'acte de vente.",
-      "**Les principales normes** : Votre installation doit traiter correctement les eaux usées avant rejet dans le sol. Les normes imposent une fosse toutes eaux (ou une micro-station) et un dispositif d'épandage adapté à la surface disponible.",
-      "**OBC Maçonnerie vous accompagne** dans la mise aux normes ou la création de votre système d'assainissement non collectif. Nous intervenons sur Orchies, Douai, Valenciennes et toute la zone.",
-    ],
-  },
-  "ossature-bois-avantages": {
-    titre: "Ossature bois : pourquoi choisir ce mode constructif ?",
-    description:
-      "Légèreté, performance thermique, rapidité de construction — l'ossature bois a de nombreux avantages. OBC Maçonnerie vous explique.",
-    cat: "Construction",
-    date: "5 novembre 2024",
-    readTime: "5 min",
-    contenu: [
-      "La construction en ossature bois connaît un vrai succès dans le Nord. Et pour cause : ce mode constructif présente de nombreux avantages techniques et économiques.",
-      "**Performance thermique** : Le bois est un excellent isolant naturel. Une construction ossature bois bien conçue atteint facilement les exigences RE2020.",
-      "**Rapidité de chantier** : Les éléments préfabriqués permettent de monter les murs en quelques jours. Le clos-couvert est obtenu très rapidement.",
-      "**Légèreté** : L'ossature bois pèse 5 à 8 fois moins qu'une construction maçonnée, ce qui allège les fondations — un avantage sur les terrains argileux fréquents dans le Nord.",
-      "**Polyvalence architecturale** : L'ossature bois permet des formes architecturales variées, des larges baies vitrées et une grande liberté de conception.",
-      "**La combinaison idéale** : OBC Maçonnerie maîtrise la construction ossature bois et la maçonnerie traditionnelle. Benoît vous conseille sur la solution la plus adaptée à votre terrain et vos envies.",
-    ],
-  },
-  "travaux-renovation-sans-permis-construction": {
-    titre: "Quels travaux de rénovation ne nécessitent pas de permis ?",
-    description:
-      "Permis de construire, déclaration préalable, simple déclaration — on vous explique les règles selon la nature de vos travaux.",
-    cat: "Rénovation",
-    date: "18 octobre 2024",
-    readTime: "4 min",
-    contenu: [
-      "Avant de démarrer des travaux de rénovation, il est important de savoir si vous avez besoin d'une autorisation administrative.",
-      "**Aucune démarche requise** : Les travaux purement intérieurs (peinture, revêtements, redistribution de cloisons non porteuses, remplacement de fenêtres à l'identique) ne nécessitent généralement aucune démarche.",
-      "**Déclaration préalable** : Pour les extensions jusqu'à 40 m² (en zone urbaine PLU), les changements de façade, les travaux modifiant l'aspect extérieur.",
-      "**Permis de construire** : Obligatoire pour les extensions de plus de 40 m², la création d'une surface de plancher supérieure à 20 m² en dehors des zones PLU, ou les changements de destination.",
-      "**Cas des zones protégées** : Si votre maison est en zone ABF (Architecte des Bâtiments de France), les règles sont plus strictes. Renseignez-vous en mairie.",
-      "En cas de doute, OBC Maçonnerie vous accompagne dans vos démarches administratives. Benoît connaît bien les règles locales dans le secteur d'Orchies, Douai et Valenciennes.",
-    ],
-  },
-  "fondations-maison-quels-types": {
-    titre: "Les différents types de fondations pour une maison",
-    description:
-      "Semelles filantes, radier, pieux — quelles fondations choisir selon votre terrain et votre projet de construction ?",
-    cat: "Construction",
-    date: "2 septembre 2024",
-    readTime: "5 min",
-    contenu: [
-      "Les fondations sont la base de toute construction. Mal dimensionnées ou inadaptées au sol, elles peuvent entraîner des désordres graves. Voici les principaux types.",
-      "**Les semelles filantes** : Le type le plus courant pour les maisons individuelles. Elles répartissent les charges des murs porteurs sur une bande de terrain. Adaptées aux sols stables et homogènes.",
-      "**Le radier** : Une dalle béton armé qui couvre toute la surface de la maison. Recommandé sur les terrains argileux, instables ou avec présence d'eau. Fréquent dans certains secteurs du Nord.",
-      "**Les pieux** : Utilisés quand le sol de surface est insuffisant pour porter la maison. Des pieux sont enfoncés jusqu'à une couche de sol plus résistante.",
-      "**L'étude de sol** : Avant toute construction, une étude géotechnique (étude de sol) est vivement recommandée — et même obligatoire dans certains cas (zones argileuses). Elle permet de choisir le bon type de fondations.",
-      "OBC Maçonnerie réalise vos fondations avec rigueur, après analyse du terrain. Benoît vous conseille sur la solution la plus adaptée à votre projet dans le Nord.",
-    ],
-  },
+// Corps des articles — FUTURE: champ rich text Payload CMS
+const articleContenu: Record<string, string[]> = {
+  "combien-coute-construction-maison-nord": [
+    "La construction d'une maison individuelle dans le Nord représente un investissement significatif. En 2025, le coût moyen se situe entre 1 200 € et 1 800 € par m² hors terrain et hors raccordements, selon les matériaux choisis et la complexité du projet.",
+    "**Le prix du terrain** est souvent la première variable. Dans le secteur d'Orchies et de Mouchin, comptez entre 50 000 € et 120 000 € pour une parcelle constructible de 400 à 600 m².",
+    "**Le gros œuvre** (fondations, murs, dalle, toiture) représente environ 40 à 50% du budget total. C'est là qu'intervient OBC Maçonnerie avec son savoir-faire et son réseau de partenaires pour optimiser les coûts sans sacrifier la qualité.",
+    "**Les finitions et corps de métier** (électricité, plomberie, chauffage, isolation, menuiserie, carrelage, peinture) représentent les 50 à 60% restants.",
+    "Pour un projet de 100 m² habitable à Orchies ou Douai, un budget total entre 180 000 € et 280 000 € (hors terrain) est réaliste selon le niveau de finition souhaité.",
+    "Le meilleur conseil : contactez Benoît Colin pour une évaluation gratuite de votre projet. Il vous donnera une estimation précise adaptée à votre terrain et vos envies.",
+  ],
+  "etapes-renovation-maison-ancienne": [
+    "Rénover une maison ancienne dans le Nord demande une méthodologie rigoureuse. Voici les grandes étapes pour mener votre projet à bien.",
+    "**1. Le diagnostic** : Avant tout, il faut évaluer l'état du bâtiment. Charpente, toiture, murs porteurs, fondations, réseaux électriques et plomberie — tout doit être passé en revue. Un maçon expérimenté comme Benoît Colin peut repérer les problèmes invisibles à l'œil nu.",
+    "**2. La démolition et le curage** : On enlève ce qui est vétuste ou inadapté — cloisons obsolètes, chapes abîmées, enduits défaillants — pour repartir sur de bonnes bases.",
+    "**3. Le gros œuvre** : Reprises de fondations si nécessaire, traitement des murs humides, création d'ouvertures, modification de la structure. C'est le cœur du métier d'OBC Maçonnerie.",
+    "**4. Les corps de métier** : Électricité, plomberie, chauffage, isolation. Grâce à son réseau de partenaires, Benoît coordonne chaque intervention dans le bon ordre.",
+    "**5. Les finitions** : Menuiseries, carrelage, peinture, revêtements de sol. La touche finale qui donne tout son caractère à votre maison rénovée.",
+    "Chaque rénovation est unique. Contactez OBC Maçonnerie pour une évaluation gratuite de votre projet.",
+  ],
+  "assainissement-non-collectif-obligations": [
+    "En France, environ 5 millions de logements sont équipés d'un assainissement non collectif (ANC). Si votre maison n'est pas raccordée au réseau public, vous êtes soumis à des obligations précises.",
+    "**Le contrôle SPANC** : Le Service Public d'Assainissement Non Collectif peut contrôler votre installation. En cas de non-conformité, vous avez en principe 4 ans pour mettre aux normes, ou moins si vous vendez le bien.",
+    "**La vente immobilière** : Depuis 2011, un diagnostic d'assainissement est obligatoire lors de toute vente. S'il révèle une non-conformité, l'acheteur doit réaliser les travaux dans l'année suivant l'acte de vente.",
+    "**Les principales normes** : Votre installation doit traiter correctement les eaux usées avant rejet dans le sol. Les normes imposent une fosse toutes eaux (ou une micro-station) et un dispositif d'épandage adapté à la surface disponible.",
+    "**OBC Maçonnerie vous accompagne** dans la mise aux normes ou la création de votre système d'assainissement non collectif. Nous intervenons sur Orchies, Douai, Valenciennes et toute la zone.",
+  ],
+  "ossature-bois-avantages": [
+    "La construction en ossature bois connaît un vrai succès dans le Nord. Et pour cause : ce mode constructif présente de nombreux avantages techniques et économiques.",
+    "**Performance thermique** : Le bois est un excellent isolant naturel. Une construction ossature bois bien conçue atteint facilement les exigences RE2020.",
+    "**Rapidité de chantier** : Les éléments préfabriqués permettent de monter les murs en quelques jours. Le clos-couvert est obtenu très rapidement.",
+    "**Légèreté** : L'ossature bois pèse 5 à 8 fois moins qu'une construction maçonnée, ce qui allège les fondations — un avantage sur les terrains argileux fréquents dans le Nord.",
+    "**Polyvalence architecturale** : L'ossature bois permet des formes architecturales variées, des larges baies vitrées et une grande liberté de conception.",
+    "**La combinaison idéale** : OBC Maçonnerie maîtrise la construction ossature bois et la maçonnerie traditionnelle. Benoît vous conseille sur la solution la plus adaptée à votre terrain et vos envies.",
+  ],
+  "travaux-renovation-sans-permis-construction": [
+    "Avant de démarrer des travaux de rénovation, il est important de savoir si vous avez besoin d'une autorisation administrative.",
+    "**Aucune démarche requise** : Les travaux purement intérieurs (peinture, revêtements, redistribution de cloisons non porteuses, remplacement de fenêtres à l'identique) ne nécessitent généralement aucune démarche.",
+    "**Déclaration préalable** : Pour les extensions jusqu'à 40 m² (en zone urbaine PLU), les changements de façade, les travaux modifiant l'aspect extérieur.",
+    "**Permis de construire** : Obligatoire pour les extensions de plus de 40 m², la création d'une surface de plancher supérieure à 20 m² en dehors des zones PLU, ou les changements de destination.",
+    "**Cas des zones protégées** : Si votre maison est en zone ABF (Architecte des Bâtiments de France), les règles sont plus strictes. Renseignez-vous en mairie.",
+    "En cas de doute, OBC Maçonnerie vous accompagne dans vos démarches administratives. Benoît connaît bien les règles locales dans le secteur d'Orchies, Douai et Valenciennes.",
+  ],
+  "fondations-maison-quels-types": [
+    "Les fondations sont la base de toute construction. Mal dimensionnées ou inadaptées au sol, elles peuvent entraîner des désordres graves. Voici les principaux types.",
+    "**Les semelles filantes** : Le type le plus courant pour les maisons individuelles. Elles répartissent les charges des murs porteurs sur une bande de terrain. Adaptées aux sols stables et homogènes.",
+    "**Le radier** : Une dalle béton armé qui couvre toute la surface de la maison. Recommandé sur les terrains argileux, instables ou avec présence d'eau. Fréquent dans certains secteurs du Nord.",
+    "**Les pieux** : Utilisés quand le sol de surface est insuffisant pour porter la maison. Des pieux sont enfoncés jusqu'à une couche de sol plus résistante.",
+    "**L'étude de sol** : Avant toute construction, une étude géotechnique (étude de sol) est vivement recommandée — et même obligatoire dans certains cas (zones argileuses). Elle permet de choisir le bon type de fondations.",
+    "OBC Maçonnerie réalise vos fondations avec rigueur, après analyse du terrain. Benoît vous conseille sur la solution la plus adaptée à votre projet dans le Nord.",
+  ],
 };
 
 export async function generateStaticParams() {
-  return Object.keys(articles).map((slug) => ({ slug }));
+  // FUTURE: utilise getBlogPosts() pour générer les slugs depuis Payload CMS
+  const posts = await getBlogPosts();
+  return posts.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = articles[slug];
-  if (!article) return { title: "Article introuvable" };
+  const [post, config] = await Promise.all([getBlogPost(slug), getSiteConfig()]);
+  if (!post) return { title: "Article introuvable" };
   return {
-    title: article.titre,
-    description: article.description,
-    alternates: { canonical: `https://obc-maconnerie.fr/blog/${slug}` },
+    title: post.titre,
+    description: post.extrait,
+    alternates: { canonical: `${config.url}/blog/${slug}` },
   };
 }
 
 export default async function BlogArticlePage({ params }: Props) {
   const { slug } = await params;
-  const article = articles[slug];
-  if (!article) notFound();
+  const post = await getBlogPost(slug);
+  if (!post) notFound();
+
+  const contenu = articleContenu[slug] ?? [];
 
   return (
     <main id="main-content" className="min-h-screen">
@@ -151,13 +99,13 @@ export default async function BlogArticlePage({ params }: Props) {
             </Link>
             <div className="flex items-center gap-3 mb-4">
               <span className="bg-orange/20 text-orange text-xs font-semibold px-2.5 py-1 rounded-full">
-                {article.cat}
+                {post.cat}
               </span>
-              <span className="text-white/40 text-xs">{article.date}</span>
-              <span className="text-white/40 text-xs">· {article.readTime} de lecture</span>
+              <span className="text-white/40 text-xs">{post.date}</span>
+              <span className="text-white/40 text-xs">· {post.readTime} de lecture</span>
             </div>
             <h1 className="text-2xl md:text-4xl font-bold text-white leading-tight">
-              {article.titre}
+              {post.titre}
             </h1>
           </ScrollReveal>
         </div>
@@ -178,7 +126,7 @@ export default async function BlogArticlePage({ params }: Props) {
               </div>
 
               <div className="space-y-5 text-text leading-relaxed">
-                {article.contenu.map((para, i) => (
+                {contenu.map((para, i) => (
                   <p key={i} className="text-base text-text-light">
                     {para.split(/(\*\*[^*]+\*\*)/).map((part, j) => {
                       if (part.startsWith("**") && part.endsWith("**")) {

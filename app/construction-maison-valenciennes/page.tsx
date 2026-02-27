@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "OBC Maçonnerie intervient à Valenciennes pour vos travaux de construction de maison, rénovation et gros œuvre. Benoît Colin, maçon expert. Devis gratuit.",
   keywords: ["construction maison Valenciennes", "maçon Valenciennes", "rénovation Valenciennes", "gros oeuvre Valenciennes"],
-  alternates: { canonical: "https://obc-maconnerie.fr/construction-maison-valenciennes" },
+  alternates: { canonical: "https://obc-terrassement.fr/construction-maison-valenciennes" },
 };
 
 export default function ConstructionMaisonValenciennesPage() {

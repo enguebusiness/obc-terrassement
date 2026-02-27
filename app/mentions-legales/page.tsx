@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Mentions Légales | OBC Maçonnerie",
   description:
     "Mentions légales du site OBC Maçonnerie — Benoît Colin, maçon à Mouchin (59310). SIREN 531 827 871.",
-  alternates: { canonical: "https://obc-maconnerie.fr/mentions-legales" },
+  alternates: { canonical: "https://obc-terrassement.fr/mentions-legales" },
   robots: { index: false, follow: false },
 };
 
@@ -31,7 +32,7 @@ export default function MentionsLegales() {
 
         <div className="space-y-10 text-text-light text-sm leading-relaxed">
           <p className="italic text-text-muted">
-            Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance en l&apos;économie numérique (LCEN), voici les informations légales du site <strong className="text-text">obc-maconnerie.fr</strong>.
+            Conformément aux dispositions de la loi n° 2004-575 du 21 juin 2004 pour la confiance en l&apos;économie numérique (LCEN), voici les informations légales du site <strong className="text-text">obc-terrassement.fr</strong>.
           </p>
 
           <section>
@@ -43,8 +44,8 @@ export default function MentionsLegales() {
                 <li><strong className="text-text">Statut :</strong> Entreprise individuelle</li>
                 <li><strong className="text-text">SIREN :</strong> 531 827 871</li>
                 <li><strong className="text-text">Siège social :</strong> 221 Route de Saint-Amand, 59310 Mouchin, France</li>
-                <li><strong className="text-text">Téléphone :</strong> <a href="tel:0674453089" className="text-orange hover:underline">06 74 45 30 89</a></li>
-                <li><strong className="text-text">Email :</strong> <a href="mailto:contact@obc-maconnerie.fr" className="text-orange hover:underline">contact@obc-maconnerie.fr</a></li>
+                <li><strong className="text-text">Téléphone :</strong> <a href={`tel:${siteConfig.phoneRaw}`} className="text-orange hover:underline">{siteConfig.phone}</a></li>
+                <li><strong className="text-text">Email :</strong> <a href="mailto:contact@obc-terrassement.fr" className="text-orange hover:underline">contact@obc-terrassement.fr</a></li>
               </ul>
               <p className="mt-3"><strong className="text-text">Directeur de la publication :</strong> Benoît COLIN</p>
             </div>

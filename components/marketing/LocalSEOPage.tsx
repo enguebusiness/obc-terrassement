@@ -3,6 +3,7 @@ import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import ContactForm from "@/components/marketing/ContactForm";
+import { siteConfig } from "@/lib/site-config";
 
 interface LocalSEOPageProps {
   ville: string;
@@ -14,13 +15,13 @@ interface LocalSEOPageProps {
   distanceMouchin?: string;
 }
 
-const services = [
-  { icon: "🏠", label: "Construction de maison", href: "/construction-maison" },
-  { icon: "🔨", label: "Rénovation", href: "/renovation" },
-  { icon: "💧", label: "Assainissement", href: "/assainissement" },
-  { icon: "🚧", label: "Création d'accès", href: "/creation-acces" },
-  { icon: "🏗️", label: "Démolition", href: "/demolition" },
-];
+// Services dérivés de siteConfig (sans "conseil" qui redirige vers /contact)
+const services = siteConfig.footerServicesNav.map((s) => {
+  const found = siteConfig.services.find(
+    (sc) => sc.title === s.label || `/${sc.slug}` === s.href
+  );
+  return { icon: found?.icon ?? "🔧", label: s.label, href: s.href };
+});
 
 export default function LocalSEOPage({
   ville,
@@ -31,6 +32,8 @@ export default function LocalSEOPage({
   texteLocal,
   distanceMouchin,
 }: LocalSEOPageProps) {
+  const { phone, phoneRaw, address } = siteConfig;
+
   return (
     <main id="main-content" className="min-h-screen">
       <Navbar />
@@ -57,8 +60,8 @@ export default function LocalSEOPage({
                 <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-hover text-white font-bold px-7 py-3.5 rounded-xl transition-colors pulse-glow">
                   Demander un devis gratuit
                 </Link>
-                <a href="tel:0674453089" className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors border border-white/20">
-                  06 74 45 30 89
+                <a href={`tel:${phoneRaw}`} className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors border border-white/20">
+                  {phone}
                 </a>
               </div>
             </ScrollReveal>
@@ -116,9 +119,9 @@ export default function LocalSEOPage({
                 </div>
                 <div>
                   <p className="text-navy font-bold text-sm">Benoît Colin — OBC Maçonnerie</p>
-                  <p className="text-text-muted text-xs">221 Route de Saint-Amand, 59310 Mouchin</p>
-                  <a href="tel:0674453089" className="text-orange font-bold text-sm hover:underline">
-                    06 74 45 30 89
+                  <p className="text-text-muted text-xs">{address}</p>
+                  <a href={`tel:${phoneRaw}`} className="text-orange font-bold text-sm hover:underline">
+                    {phone}
                   </a>
                 </div>
               </div>

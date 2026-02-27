@@ -3,58 +3,21 @@ import Link from "next/link";
 import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import { getPartners, getSiteConfig } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Notre Réseau de Partenaires | OBC Maçonnerie Nord",
-  description:
-    "OBC Maçonnerie coordonne un réseau d'artisans partenaires de confiance pour livrer votre maison de A à Z : électricité, plomberie, charpente, isolation, menuiserie, carrelage, peinture.",
-  alternates: { canonical: "https://obc-maconnerie.fr/partenaires" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+  return {
+    title: "Notre Réseau de Partenaires | OBC Maçonnerie Nord",
+    description:
+      "OBC Maçonnerie coordonne un réseau d'artisans partenaires de confiance pour livrer votre maison de A à Z : électricité, plomberie, charpente, isolation, menuiserie, carrelage, peinture.",
+    alternates: { canonical: `${config.url}/partenaires` },
+  };
+}
 
-const partenaires = [
-  {
-    icon: "⚡",
-    metier: "Électricité",
-    desc: "Installation électrique aux normes NF C 15-100, tableau de distribution, prises, éclairage.",
-  },
-  {
-    icon: "🔧",
-    metier: "Plomberie",
-    desc: "Plomberie sanitaire, chauffage central, installation de salles de bains et cuisines.",
-  },
-  {
-    icon: "🪵",
-    metier: "Charpente",
-    desc: "Charpente traditionnelle ou industrielle, structure bois pour combles aménageables ou non.",
-  },
-  {
-    icon: "🏚️",
-    metier: "Couverture",
-    desc: "Pose de toiture, tuiles, ardoises, zinc — étanchéité et finitions soignées.",
-  },
-  {
-    icon: "🧱",
-    metier: "Isolation",
-    desc: "Isolation thermique et phonique par l'intérieur ou l'extérieur, combles, planchers.",
-  },
-  {
-    icon: "🚪",
-    metier: "Menuiserie",
-    desc: "Fenêtres, portes, vérandas, volets — menuiserie bois, PVC ou aluminium.",
-  },
-  {
-    icon: "🔳",
-    metier: "Carrelage & Revêtements",
-    desc: "Pose de carrelage, parquet, faïence — pour sols et murs, intérieur et extérieur.",
-  },
-  {
-    icon: "🎨",
-    metier: "Peinture",
-    desc: "Peinture intérieure et extérieure, enduits décoratifs, ravalement de façade.",
-  },
-];
+export default async function PartenairesPage() {
+  const partenaires = await getPartners();
 
-export default function PartenairesPage() {
   return (
     <main id="main-content" className="min-h-screen">
       <Navbar />
@@ -88,10 +51,10 @@ export default function PartenairesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {partenaires.map((p, i) => (
-              <ScrollReveal key={p.metier} direction="up" delay={i * 70}>
+              <ScrollReveal key={p.label} direction="up" delay={i * 70}>
                 <div className="bg-bg-white border border-border rounded-2xl p-5 text-center h-full hover:border-orange hover:shadow-md transition-all">
                   <div className="text-4xl mb-3">{p.icon}</div>
-                  <h3 className="text-navy font-bold text-base mb-2">{p.metier}</h3>
+                  <h3 className="text-navy font-bold text-base mb-2">{p.label}</h3>
                   <p className="text-text-light text-xs leading-relaxed">{p.desc}</p>
                 </div>
               </ScrollReveal>

@@ -3,50 +3,46 @@ import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import ContactForm from "@/components/marketing/ContactForm";
+import { getSiteConfig } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Contact & Devis Gratuit | OBC Maçonnerie Nord",
-  description:
-    "Contactez OBC Maçonnerie pour un devis gratuit. Benoît Colin intervient à Orchies, Douai, Valenciennes et dans un rayon de 30km autour de Mouchin (59).",
-  alternates: { canonical: "https://obc-maconnerie.fr/contact" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+  return {
+    title: "Contact & Devis Gratuit | OBC Maçonnerie Nord",
+    description:
+      "Contactez OBC Maçonnerie pour un devis gratuit. Benoît Colin intervient à Orchies, Douai, Valenciennes et dans un rayon de 30km autour de Mouchin (59).",
+    alternates: { canonical: `${config.url}/contact` },
+  };
+}
 
-const infos = [
-  {
-    icon: "📞",
-    titre: "Téléphone",
-    val: "06 74 45 30 89",
-    href: "tel:0674453089",
-    desc: "Lun–Ven 7h–19h",
-  },
-  {
-    icon: "📍",
-    titre: "Adresse",
-    val: "221 Route de Saint-Amand, 59310 Mouchin",
-    href: undefined,
-    desc: "Rayon d'intervention : 30km",
-  },
-  {
-    icon: "📧",
-    titre: "Email",
-    val: "contact@obc-maconnerie.fr",
-    href: "mailto:contact@obc-maconnerie.fr",
-    desc: "Réponse sous 24h",
-  },
-];
+export default async function ContactPage() {
+  const config = await getSiteConfig();
+  const { phone, phoneRaw, email, address, zones, zoneDescription } = config;
 
-const zones = [
-  "Orchies",
-  "Mouchin",
-  "Flines-lès-Raches",
-  "Château-l'Abbaye",
-  "Mérignies",
-  "Douai",
-  "Valenciennes",
-  "Saint-Amand-les-Eaux",
-];
+  const infos = [
+    {
+      icon: "📞",
+      titre: "Téléphone",
+      val: phone,
+      href: `tel:${phoneRaw}`,
+      desc: "Lun–Ven 7h–19h",
+    },
+    {
+      icon: "📍",
+      titre: "Adresse",
+      val: address,
+      href: undefined as string | undefined,
+      desc: "Rayon d'intervention : 30km",
+    },
+    {
+      icon: "📧",
+      titre: "Email",
+      val: email,
+      href: `mailto:${email}`,
+      desc: "Réponse sous 24h",
+    },
+  ];
 
-export default function ContactPage() {
   return (
     <main id="main-content" className="min-h-screen">
       <Navbar />
@@ -100,11 +96,11 @@ export default function ContactPage() {
                   ))}
                 </div>
                 <p className="text-text-muted text-xs italic">
-                  Et toutes les communes dans un rayon de 20-30 km autour de Mouchin (Nord 59).
+                  Et toutes les communes dans un rayon de {zoneDescription}.
                 </p>
 
                 <div className="mt-8 bg-navy rounded-2xl p-6">
-                  <h3 className="text-white font-bold mb-2">Devis gratuit & sans engagement</h3>
+                  <h3 className="text-white font-bold mb-2">Devis gratuit &amp; sans engagement</h3>
                   <p className="text-white/60 text-sm">
                     Benoît se déplace sur votre chantier pour évaluer votre projet, vous conseiller et vous remettre un devis clair et détaillé. Gratuit et sans engagement.
                   </p>

@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
+import { siteConfig } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Politique de Confidentialité | OBC Maçonnerie",
   description:
     "Politique de confidentialité et protection des données personnelles du site OBC Maçonnerie, conformément au RGPD.",
-  alternates: { canonical: "https://obc-maconnerie.fr/confidentialite" },
+  alternates: { canonical: "https://obc-terrassement.fr/confidentialite" },
   robots: { index: false, follow: false },
 };
 
@@ -34,8 +35,8 @@ export default function Confidentialite() {
               <p><strong className="text-text">Benoît COLIN — OBC Maçonnerie</strong></p>
               <p>SIREN : 531 827 871</p>
               <p>221 Route de Saint-Amand, 59310 Mouchin</p>
-              <p>Tél : <a href="tel:0674453089" className="text-orange hover:underline">06 74 45 30 89</a></p>
-              <p>Email : <a href="mailto:contact@obc-maconnerie.fr" className="text-orange hover:underline">contact@obc-maconnerie.fr</a></p>
+              <p>Tél : <a href={`tel:${siteConfig.phoneRaw}`} className="text-orange hover:underline">{siteConfig.phone}</a></p>
+              <p>Email : <a href="mailto:contact@obc-terrassement.fr" className="text-orange hover:underline">contact@obc-terrassement.fr</a></p>
             </div>
           </section>
 
@@ -100,8 +101,8 @@ export default function Confidentialite() {
               Conformément au RGPD, vous disposez d&apos;un droit d&apos;accès, de rectification, d&apos;effacement et de portabilité de vos données. Pour exercer ces droits, contactez-nous :
             </p>
             <p className="mt-3">
-              <a href="mailto:contact@obc-maconnerie.fr" className="text-orange font-semibold hover:underline">
-                contact@obc-maconnerie.fr
+              <a href="mailto:contact@obc-terrassement.fr" className="text-orange font-semibold hover:underline">
+                contact@obc-terrassement.fr
               </a>
             </p>
           </section>

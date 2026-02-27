@@ -4,8 +4,12 @@ import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import ContactForm from "@/components/marketing/ContactForm";
+import { getSiteConfig } from "@/lib/content";
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+  return {
+
   title: "Création d'Accès, Voiries & Entrées | OBC Maçonnerie Nord",
   description:
     "Création d'accès, voiries privées, entrées de propriété et chemins dans le Nord (59). OBC Maçonnerie à Orchies. Devis gratuit.",
@@ -17,8 +21,9 @@ export const metadata: Metadata = {
     "béton imprimé Nord",
     "création accès Orchies",
   ],
-  alternates: { canonical: "https://obc-maconnerie.fr/creation-acces" },
-};
+  alternates: { canonical: `${config.url}/creation-acces` },
+  };
+}
 
 const types = [
   { icon: "🚗", title: "Entrées de propriété", desc: "Création d'une entrée soignée en béton, béton imprimé, pavés ou gravier stabilisé — adaptée à votre maison." },
@@ -29,7 +34,9 @@ const types = [
   { icon: "💧", title: "Drainage & évacuation", desc: "Mise en place de caniveaux, avaloirs et systèmes de drainage pour éviter les accumulations d'eau." },
 ];
 
-export default function CreationAccesPage() {
+export default async function CreationAccesPage() {
+  const config = await getSiteConfig();
+  const { phone, phoneRaw } = config;
   return (
     <main id="main-content" className="min-h-screen">
       <Navbar />
@@ -55,9 +62,7 @@ export default function CreationAccesPage() {
                 <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-hover text-white font-bold px-7 py-3.5 rounded-xl transition-colors pulse-glow">
                   Demander un devis gratuit
                 </Link>
-                <a href="tel:0674453089" className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors border border-white/20">
-                  06 74 45 30 89
-                </a>
+                <a href={`tel:${phoneRaw}`} className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors border border-white/20">{phone}</a>
               </div>
             </ScrollReveal>
           </div>

@@ -4,8 +4,12 @@ import Navbar from "@/components/marketing/Navbar";
 import Footer from "@/components/marketing/Footer";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import ContactForm from "@/components/marketing/ContactForm";
+import { getSiteConfig } from "@/lib/content";
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await getSiteConfig();
+  return {
+
   title: "Démolition Maison Nord 59 | OBC Maçonnerie",
   description:
     "Démolition totale ou partielle de maison, murs porteurs, bâtiments dans le Nord (59). OBC Maçonnerie à Orchies. Toutes garanties de sécurité. Devis gratuit.",
@@ -17,8 +21,9 @@ export const metadata: Metadata = {
     "démolition Orchies",
     "démolition Douai",
   ],
-  alternates: { canonical: "https://obc-maconnerie.fr/demolition" },
-};
+  alternates: { canonical: `${config.url}/demolition` },
+  };
+}
 
 const types = [
   { icon: "🏚️", title: "Démolition totale", desc: "Destruction complète d'un bâtiment résidentiel ou annexe, avec évacuation des gravats et remise en état du terrain." },
@@ -29,7 +34,9 @@ const types = [
   { icon: "🏠", title: "Curage intérieur", desc: "Enlèvement complet des éléments intérieurs (cloisons, planchers, revêtements) avant une rénovation lourde." },
 ];
 
-export default function DemolitionPage() {
+export default async function DemolitionPage() {
+  const config = await getSiteConfig();
+  const { phone, phoneRaw } = config;
   return (
     <main id="main-content" className="min-h-screen">
       <Navbar />
@@ -55,9 +62,7 @@ export default function DemolitionPage() {
                 <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-hover text-white font-bold px-7 py-3.5 rounded-xl transition-colors pulse-glow">
                   Demander un devis gratuit
                 </Link>
-                <a href="tel:0674453089" className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors border border-white/20">
-                  06 74 45 30 89
-                </a>
+                <a href={`tel:${phoneRaw}`} className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-7 py-3.5 rounded-xl transition-colors border border-white/20">{phone}</a>
               </div>
             </ScrollReveal>
           </div>
