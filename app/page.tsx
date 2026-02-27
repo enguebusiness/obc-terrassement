@@ -33,18 +33,21 @@ function Arrow({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
-/* ── Service card — dark bg editorial ── */
+/* ── Service card — light bg, numbered ── */
 function ServiceCard({ service, index }: { service: Service; index: number }) {
   const href = service.slug === "conseil" ? "/contact" : `/${service.slug}`;
   return (
-    <Link href={href} className="service-card-dark group block bg-white/[0.03] p-7 cursor-pointer">
-      <div className="text-3xl mb-5 grayscale group-hover:grayscale-0 transition-all duration-300">
-        {service.icon}
+    <Link
+      href={href}
+      className="group block bg-white border border-border p-8 hover:border-orange hover:shadow-xl transition-all duration-300"
+    >
+      <div className="text-5xl font-black text-border group-hover:text-orange/25 transition-colors mb-6 leading-none tracking-tighter">
+        {String(index + 1).padStart(2, "0")}
       </div>
-      <h3 className="text-white font-black text-base uppercase tracking-wider mb-3 group-hover:text-orange transition-colors">
+      <h3 className="text-navy font-black text-base uppercase tracking-wider mb-3 group-hover:text-orange transition-colors">
         {service.title}
       </h3>
-      <p className="text-white/50 text-sm leading-relaxed mb-6">{service.shortDescription}</p>
+      <p className="text-text-light text-sm leading-relaxed mb-7">{service.shortDescription}</p>
       <span className="btn-arrow text-orange text-xs uppercase tracking-widest">
         Découvrir
         <span className="arrow-icon">
@@ -55,7 +58,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
   );
 }
 
-/* ── Testimonial card ── */
+/* ── Testimonial card — light bg ── */
 function TestimonialCard({ t }: { t: Testimonial }) {
   const serviceLabel: Record<string, string> = {
     "construction-maison": "Construction",
@@ -65,18 +68,25 @@ function TestimonialCard({ t }: { t: Testimonial }) {
     demolition: "Démolition",
   };
   return (
-    <div className="border-t border-white/15 pt-6 flex flex-col h-full">
-      <div className="flex gap-0.5 mb-4">
+    <div className="bg-white border border-border p-7 flex flex-col h-full">
+      <div className="flex gap-0.5 mb-5">
         {Array.from({ length: 5 }).map((_, i) => (
-          <svg key={i} className={`w-3.5 h-3.5 ${i < t.rating ? "text-orange" : "text-white/15"}`} fill="currentColor" viewBox="0 0 20 20">
+          <svg
+            key={i}
+            className={`w-3.5 h-3.5 ${i < t.rating ? "text-orange" : "text-border"}`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
           </svg>
         ))}
       </div>
-      <p className="text-white/70 text-sm leading-relaxed flex-1 italic">&ldquo;{t.text}&rdquo;</p>
-      <div className="mt-5">
-        <p className="text-white font-bold text-sm">{t.name}</p>
-        <p className="text-white/35 text-xs uppercase tracking-wider mt-0.5">
+      <p className="text-text-light text-sm leading-relaxed flex-1 italic mb-6">
+        &ldquo;{t.text}&rdquo;
+      </p>
+      <div className="border-t border-border pt-5">
+        <p className="text-navy font-bold text-sm">{t.name}</p>
+        <p className="text-text-muted text-xs uppercase tracking-wider mt-0.5">
           {t.ville} — {serviceLabel[t.service] ?? t.service}
         </p>
       </div>
@@ -105,6 +115,12 @@ function FAQItem({ item }: { item: FAQItem }) {
   );
 }
 
+/* Photos Unsplash construction / maçonnerie */
+const HERO_PHOTO =
+  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80";
+const CTA_PHOTO =
+  "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1920&q=80";
+
 /* ══════════════════════════════════════════════════
    PAGE PRINCIPALE
 ══════════════════════════════════════════════════ */
@@ -126,32 +142,39 @@ export default async function HomePage() {
     <main id="main-content" className="min-h-screen">
       <Navbar />
 
-      {/* ══ 1 — HERO ══ */}
-      <section className="relative bg-navy overflow-hidden texture-dark">
-        {/* Panneaux décoratifs diagonaux */}
-        <div className="hero-diagonal-panel" />
-        <div className="hero-accent-line" style={{ right: "44%" }} />
+      {/* ══ 1 — HERO PHOTO ══ */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Photo de fond */}
+        <div className="absolute inset-0 z-0">
+          <div
+            className="w-full h-full bg-center bg-cover"
+            style={{ backgroundImage: `url('${HERO_PHOTO}')` }}
+          />
+          {/* Gradient gauche → droite pour lisibilité du texte */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/20" />
+          {/* Gradient bas → haut pour les stats */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+        </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-5 min-h-[92vh] items-center gap-0">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-24 md:py-32">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
 
             {/* Contenu gauche */}
-            <div className="lg:col-span-3 py-20 md:py-28">
-              <div className="animate-hero-text-1">
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="w-8 h-px bg-orange" />
-                  <span className="text-orange text-xs font-bold uppercase tracking-[0.25em]">
-                    {hero.badge}
-                  </span>
-                </div>
-                <h1 className="text-[clamp(3rem,8vw,6.5rem)] font-black text-white leading-[0.9] tracking-tight uppercase mb-8">
-                  Maçon<br />
-                  <span className="text-orange">&amp;</span><br />
-                  Construc<span className="text-white/30">teur</span>
-                </h1>
+            <div className="lg:col-span-7">
+              <div className="animate-hero-text-1 flex items-center gap-3 mb-7">
+                <div className="w-8 h-px bg-orange" />
+                <span className="text-orange text-xs font-bold uppercase tracking-[0.25em]">
+                  Maçon &amp; Constructeur · Nord 59
+                </span>
               </div>
 
-              <p className="animate-hero-text-2 text-white/55 text-base md:text-lg max-w-md leading-relaxed mb-10">
+              <h1 className="animate-hero-text-2 text-[clamp(2.8rem,7vw,5.5rem)] font-black text-white leading-[0.9] tracking-tight uppercase mb-8">
+                Maçon<br />
+                <span className="text-orange">&amp;</span>{" "}
+                Construc<span className="text-white/30">teur</span>
+              </h1>
+
+              <p className="animate-hero-text-3 text-white/70 text-base md:text-lg max-w-md leading-relaxed mb-10">
                 {hero.subtitle}
               </p>
 
@@ -167,7 +190,7 @@ export default async function HomePage() {
                   href={`tel:${phoneRaw}`}
                   className="btn btn-outline-light px-8 py-4 text-xs uppercase tracking-[0.2em]"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   <span>{phone}</span>
@@ -175,40 +198,44 @@ export default async function HomePage() {
               </div>
 
               {/* Stats */}
-              <div className="mt-14 pt-10 border-t border-white/10 flex gap-10">
+              <div className="mt-14 pt-10 border-t border-white/15 flex gap-10 flex-wrap">
                 {hero.stats.map((s) => (
                   <div key={s.label}>
-                    <div className="text-3xl md:text-4xl font-black text-white animate-stat-glow">
-                      {s.val}
-                    </div>
-                    <div className="text-white/35 text-xs uppercase tracking-widest mt-1">{s.label}</div>
+                    <div className="text-3xl md:text-4xl font-black text-white">{s.val}</div>
+                    <div className="text-white/40 text-xs uppercase tracking-widest mt-1">{s.label}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Panneau droit — stats éditoriales sur fond diagonal */}
-            <div className="hidden lg:flex lg:col-span-2 flex-col justify-center items-start pl-16 py-28 relative z-10">
-              <div className="space-y-8">
-                {values.slice(0, 3).map((v, i) => (
-                  <div key={v.title} className={`flex items-start gap-4 animate-hero-text-${Math.min(i + 1, 3)}`}>
-                    <div className="w-10 h-10 border border-orange/40 flex items-center justify-center shrink-0 text-lg">
-                      {v.icon}
+            {/* Carte glassmorphisme droite */}
+            <div className="hidden lg:block lg:col-span-5">
+              <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-8">
+                <p className="text-white/55 text-xs font-bold uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
+                  <span className="w-5 h-px bg-orange" />
+                  Pourquoi OBC Maçonnerie ?
+                </p>
+                <div className="space-y-6">
+                  {values.slice(0, 3).map((v) => (
+                    <div key={v.title} className="flex items-start gap-4">
+                      <div className="w-8 h-8 border border-orange/50 bg-orange/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <div className="w-2 h-2 bg-orange" />
+                      </div>
+                      <div>
+                        <p className="text-white font-bold text-sm uppercase tracking-wider">{v.title}</p>
+                        <p className="text-white/55 text-xs mt-1 leading-relaxed">{v.description}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-white font-bold text-sm uppercase tracking-wider">{v.title}</p>
-                      <p className="text-white/40 text-xs mt-1 leading-relaxed max-w-[200px]">{v.description}</p>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ══ 2 — NOS SERVICES (dark editorial) ══ */}
-      <section className="bg-navy-light py-20 md:py-24">
+      {/* ══ 2 — NOS SERVICES (fond blanc) ══ */}
+      <section className="bg-white py-20 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up">
             <div className="flex items-end justify-between mb-12 gap-6 flex-wrap">
@@ -216,13 +243,13 @@ export default async function HomePage() {
                 <span className="text-orange text-xs font-bold uppercase tracking-[0.25em] block mb-3">
                   Nos savoir-faire
                 </span>
-                <h2 className="text-white font-black text-3xl md:text-5xl uppercase leading-tight tracking-tight">
+                <h2 className="text-navy font-black text-3xl md:text-5xl uppercase leading-tight tracking-tight">
                   Nos<br />services
                 </h2>
               </div>
               <Link
                 href="/services"
-                className="btn-arrow text-white/50 hover:text-white text-xs uppercase tracking-widest"
+                className="btn-arrow text-text-muted hover:text-navy text-xs uppercase tracking-widest"
               >
                 Tous les services
                 <span className="arrow-icon"><Arrow className="w-3.5 h-3.5" /></span>
@@ -230,7 +257,7 @@ export default async function HomePage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {services.map((s, i) => (
               <ScrollReveal key={s.slug} direction="up" delay={i * 60}>
                 <ServiceCard service={s} index={i} />
@@ -240,13 +267,22 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ══ 3 — BANDE CTA ══ */}
-      <section className="bg-orange py-16 md:py-20 relative overflow-hidden">
+      {/* ══ 3 — BANDE CTA (photo + overlay rouge brique) ══ */}
+      <section className="relative py-16 md:py-20 overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url('${CTA_PHOTO}')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div className="absolute inset-0 bg-orange/90" />
         <div className="absolute inset-0 opacity-5" style={{
           backgroundImage: "repeating-linear-gradient(45deg, #fff 0px, #fff 1px, transparent 1px, transparent 50%)",
-          backgroundSize: "20px 20px"
+          backgroundSize: "20px 20px",
         }} />
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal direction="up">
             <p className="text-white/70 text-xs font-bold uppercase tracking-[0.3em] mb-4">
               Devis gratuit — Réponse sous 24h
@@ -299,26 +335,30 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {realisations.map((r, i) => {
-              const bgColors = ["bg-navy", "bg-stone", "bg-navy-light", "bg-stone", "bg-navy", "bg-navy-light"];
+              const bgColors = [
+                "bg-stone-500", "bg-zinc-600", "bg-stone-600",
+                "bg-zinc-500", "bg-stone-700", "bg-zinc-700",
+              ];
               return (
                 <ScrollReveal key={r.title} direction="up" delay={i * 80}>
                   <div className="realisation-card relative overflow-hidden aspect-[4/3] cursor-pointer group">
-                    {/* Fond placeholder */}
                     <div className={`${bgColors[i % bgColors.length]} w-full h-full flex items-center justify-center`}>
-                      <span className="text-white/8 font-black text-9xl select-none">0{i + 1}</span>
+                      <span className="text-white/10 font-black text-9xl select-none">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
                     </div>
-                    {/* Ligne orange bas (repos) */}
-                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-orange/40 transition-all duration-500 group-hover:h-full group-hover:bg-orange/0" />
+                    {/* Barre orange repos */}
+                    <div className="absolute bottom-0 left-0 w-full h-0.5 bg-orange/50 transition-all duration-500 group-hover:h-full group-hover:bg-orange/0" />
                     {/* Infos au repos */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 to-transparent translate-y-0 group-hover:opacity-0 transition-opacity duration-300">
+                    <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/75 to-transparent translate-y-0 group-hover:opacity-0 transition-opacity duration-300">
                       <span className="text-white/50 text-xs uppercase tracking-widest block mb-1">{r.ville}</span>
                       <h3 className="text-white font-black text-sm uppercase tracking-wide">{r.title}</h3>
                     </div>
-                    {/* Overlay hover — slide from bottom */}
+                    {/* Overlay hover */}
                     <div className="realisation-overlay absolute inset-0 bg-orange flex flex-col justify-end p-6">
                       <span className="text-white/60 text-xs uppercase tracking-[0.2em] mb-2">{r.ville}</span>
                       <h3 className="text-white font-black text-lg uppercase tracking-tight mb-2">{r.title}</h3>
-                      <p className="text-white/70 text-xs leading-relaxed">{r.description}</p>
+                      <p className="text-white/75 text-xs leading-relaxed">{r.description}</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -328,20 +368,20 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ══ 5 — TÉMOIGNAGES (dark) ══ */}
-      <section className="py-20 md:py-24 bg-navy texture-dark">
+      {/* ══ 5 — TÉMOIGNAGES (fond pierre clair) ══ */}
+      <section className="py-20 md:py-24 bg-stone-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up">
             <div className="mb-14">
               <span className="text-orange text-xs font-bold uppercase tracking-[0.25em] block mb-3">
                 Ce qu&apos;ils en disent
               </span>
-              <h2 className="text-white font-black text-3xl md:text-5xl uppercase leading-tight tracking-tight">
+              <h2 className="text-navy font-black text-3xl md:text-5xl uppercase leading-tight tracking-tight">
                 Clients<br />satisfaits
               </h2>
             </div>
           </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {testimonials.map((t, i) => (
               <ScrollReveal key={t.name} direction="up" delay={i * 100}>
                 <TestimonialCard t={t} />
@@ -352,7 +392,7 @@ export default async function HomePage() {
       </section>
 
       {/* ══ 6 — ZONE D'INTERVENTION ══ */}
-      <section className="py-20 md:py-24 bg-bg">
+      <section className="py-20 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <ScrollReveal direction="left">
@@ -376,16 +416,16 @@ export default async function HomePage() {
 
             <ScrollReveal direction="right">
               <div className="flex flex-wrap gap-2">
-                {zones.map((v, i) => (
+                {zones.map((v) => (
                   <span
                     key={v}
-                    className="inline-flex items-center gap-1.5 bg-bg-white border border-border text-navy font-bold text-xs px-4 py-2.5 uppercase tracking-wider hover:border-orange hover:text-orange transition-all duration-200 cursor-default"
+                    className="inline-flex items-center gap-1.5 bg-bg border border-border text-navy font-bold text-xs px-4 py-2.5 uppercase tracking-wider hover:border-orange hover:text-orange transition-all duration-200 cursor-default"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-orange shrink-0" />
+                    <span className="w-1.5 h-1.5 bg-orange shrink-0" />
                     {v}
                   </span>
                 ))}
-                <span className="inline-flex items-center gap-1.5 bg-orange/10 border border-orange/30 text-orange font-bold text-xs px-4 py-2.5 uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1.5 bg-orange/8 border border-orange/25 text-orange font-bold text-xs px-4 py-2.5 uppercase tracking-wider">
                   + communes voisines
                 </span>
               </div>
@@ -395,7 +435,7 @@ export default async function HomePage() {
       </section>
 
       {/* ══ 7 — PARTENAIRES ══ */}
-      <section className="py-16 bg-stone-bg border-t border-border">
+      <section className="py-16 bg-bg border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10">
@@ -419,9 +459,8 @@ export default async function HomePage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
             {partners.map((p, i) => (
               <ScrollReveal key={p.label} direction="up" delay={i * 40}>
-                <div className="group bg-bg-white border border-border p-4 text-center hover:border-orange transition-all duration-200 cursor-default">
-                  <div className="text-xl mb-2 grayscale group-hover:grayscale-0 transition-all">{p.icon}</div>
-                  <span className="text-navy font-bold text-xs uppercase tracking-wide group-hover:text-orange transition-colors">
+                <div className="group bg-white border border-border p-4 text-center hover:border-orange transition-all duration-200 cursor-default">
+                  <span className="text-navy font-bold text-xs uppercase tracking-wide group-hover:text-orange transition-colors leading-tight block">
                     {p.label}
                   </span>
                 </div>
@@ -432,7 +471,7 @@ export default async function HomePage() {
       </section>
 
       {/* ══ 8 — FAQ ══ */}
-      <section className="py-20 md:py-24 bg-bg">
+      <section className="py-20 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
             <ScrollReveal direction="left">
@@ -468,71 +507,81 @@ export default async function HomePage() {
 
       {/* ══ 9 — CONTACT SPLIT ══ */}
       <section id="contact" className="grid lg:grid-cols-2">
-        {/* Gauche — dark info */}
-        <div className="bg-navy texture-dark py-16 md:py-20 px-8 md:px-12 lg:px-16 relative overflow-hidden">
-          <div className="hero-accent" />
-          <ScrollReveal direction="left">
-            <span className="text-orange text-xs font-bold uppercase tracking-[0.25em] block mb-4">
-              Contactez-nous
-            </span>
-            <h2 className="text-white font-black text-3xl md:text-4xl uppercase leading-tight tracking-tight mb-8">
-              Parlons de<br />votre projet
-            </h2>
+        {/* Gauche — sombre avec photo en arrière-plan */}
+        <div className="relative bg-navy py-16 md:py-20 px-8 md:px-12 lg:px-16 overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-15"
+            style={{
+              backgroundImage: `url('${HERO_PHOTO}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center right",
+            }}
+          />
+          <div className="absolute inset-0 bg-navy/80" />
+          <div className="relative z-10">
+            <ScrollReveal direction="left">
+              <span className="text-orange text-xs font-bold uppercase tracking-[0.25em] block mb-4">
+                Contactez-nous
+              </span>
+              <h2 className="text-white font-black text-3xl md:text-4xl uppercase leading-tight tracking-tight mb-8">
+                Parlons de<br />votre projet
+              </h2>
 
-            <div className="space-y-6 mb-10">
-              <a href={`tel:${phoneRaw}`} className="flex items-center gap-4 group">
-                <div className="w-11 h-11 border border-orange/40 flex items-center justify-center shrink-0 group-hover:border-orange group-hover:bg-orange/10 transition-all">
-                  <svg className="w-5 h-5 text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Téléphone</p>
-                  <p className="text-white font-bold text-lg group-hover:text-orange transition-colors">{phone}</p>
-                </div>
-              </a>
+              <div className="space-y-6 mb-10">
+                <a href={`tel:${phoneRaw}`} className="flex items-center gap-4 group">
+                  <div className="w-11 h-11 border border-orange/40 flex items-center justify-center shrink-0 group-hover:border-orange group-hover:bg-orange/10 transition-all">
+                    <svg className="w-5 h-5 text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Téléphone</p>
+                    <p className="text-white font-bold text-lg group-hover:text-orange transition-colors">{phone}</p>
+                  </div>
+                </a>
 
-              <div className="flex items-center gap-4">
-                <div className="w-11 h-11 border border-white/15 flex items-center justify-center shrink-0">
-                  <svg className="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
+                <div className="flex items-center gap-4">
+                  <div className="w-11 h-11 border border-white/15 flex items-center justify-center shrink-0">
+                    <svg className="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Siège</p>
+                    <p className="text-white/70 text-sm">{config.address}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Siège</p>
-                  <p className="text-white/70 text-sm">{config.address}</p>
+
+                <div className="flex items-center gap-4">
+                  <div className="w-11 h-11 border border-white/15 flex items-center justify-center shrink-0">
+                    <svg className="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Délai de réponse</p>
+                    <p className="text-white/70 text-sm">Sous 24h — Du lundi au samedi</p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="w-11 h-11 border border-white/15 flex items-center justify-center shrink-0">
-                  <svg className="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Délai de réponse</p>
-                  <p className="text-white/70 text-sm">Sous 24h — Du lundi au samedi</p>
-                </div>
+              {/* Garanties */}
+              <div className="border-t border-white/10 pt-8 grid grid-cols-2 gap-4">
+                {[
+                  { val: "Gratuit", label: "Devis" },
+                  { val: "24h", label: "Réponse" },
+                  { val: "15+", label: "Ans d'expérience" },
+                  { val: "100%", label: "Satisfaction" },
+                ].map((s) => (
+                  <div key={s.label}>
+                    <div className="text-2xl font-black text-orange">{s.val}</div>
+                    <div className="text-white/35 text-xs uppercase tracking-wider mt-0.5">{s.label}</div>
+                  </div>
+                ))}
               </div>
-            </div>
-
-            {/* Garanties */}
-            <div className="border-t border-white/10 pt-8 grid grid-cols-2 gap-4">
-              {[
-                { val: "Gratuit", label: "Devis" },
-                { val: "24h", label: "Réponse" },
-                { val: "10+", label: "Ans d'expérience" },
-                { val: "100%", label: "Satisfaction" },
-              ].map((s) => (
-                <div key={s.label}>
-                  <div className="text-2xl font-black text-orange">{s.val}</div>
-                  <div className="text-white/35 text-xs uppercase tracking-wider mt-0.5">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
+          </div>
         </div>
 
         {/* Droite — formulaire */}

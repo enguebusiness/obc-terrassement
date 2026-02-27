@@ -18,7 +18,6 @@ export default function ContactForm() {
     email: "",
     typeProjet: "",
     description: "",
-    budget: "",
     zone: "",
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -46,7 +45,7 @@ export default function ContactForm() {
       });
       if (res.ok) {
         setStatus("success");
-        setForm({ nom: "", telephone: "", email: "", typeProjet: "", description: "", budget: "", zone: "" });
+        setForm({ nom: "", telephone: "", email: "", typeProjet: "", description: "", zone: "" });
       } else {
         setStatus("error");
       }
@@ -114,17 +113,10 @@ export default function ContactForm() {
           className={`${ic} resize-none`} />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="budget" className={lc}>Budget approximatif</label>
-          <input id="budget" name="budget" type="text" value={form.budget} onChange={handleChange}
-            placeholder="ex : 80 000 €" className={ic} />
-        </div>
-        <div>
-          <label htmlFor="zone" className={lc}>Commune / Zone</label>
-          <input id="zone" name="zone" type="text" value={form.zone} onChange={handleChange}
-            placeholder="ex : Orchies, Douai..." className={ic} />
-        </div>
+      <div>
+        <label htmlFor="zone" className={lc}>Commune / Zone</label>
+        <input id="zone" name="zone" type="text" value={form.zone} onChange={handleChange}
+          placeholder="ex : Orchies, Douai..." className={ic} />
       </div>
 
       {error && (
