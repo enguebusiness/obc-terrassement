@@ -19,103 +19,123 @@ export default async function ContactPage() {
   const config = await getSiteConfig();
   const { phone, phoneRaw, email, address, zones, zoneDescription } = config;
 
-  const infos = [
-    {
-      icon: "📞",
-      titre: "Téléphone",
-      val: phone,
-      href: `tel:${phoneRaw}`,
-      desc: "Lun–Ven 7h–19h",
-    },
-    {
-      icon: "📍",
-      titre: "Adresse",
-      val: address,
-      href: undefined as string | undefined,
-      desc: "Rayon d'intervention : 30km",
-    },
-    {
-      icon: "📧",
-      titre: "Email",
-      val: email,
-      href: `mailto:${email}`,
-      desc: "Réponse sous 24h",
-    },
-  ];
-
   return (
     <main id="main-content" className="min-h-screen">
       <Navbar />
 
-      <section className="bg-navy py-16 md:py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      {/* Page hero */}
+      <section className="bg-navy texture-dark py-16 md:py-20 relative overflow-hidden">
+        <div className="hero-diagonal-panel" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up">
-            <span className="text-orange text-sm font-semibold uppercase tracking-widest">Devis gratuit</span>
-            <h1 className="text-3xl md:text-5xl font-bold text-white mt-2 mb-4">
-              Contactez OBC Maçonnerie
+            <span className="text-orange text-xs font-bold uppercase tracking-[0.25em] block mb-4">
+              Devis gratuit — Réponse sous 24h
+            </span>
+            <h1 className="text-4xl md:text-6xl font-black text-white uppercase leading-none tracking-tight">
+              Parlons de<br />votre projet
             </h1>
-            <p className="text-white/70 text-lg max-w-xl mx-auto">
-              Benoît se déplace gratuitement pour évaluer votre projet et vous remettre un devis détaillé sous 24h.
-            </p>
           </ScrollReveal>
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-bg">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {/* Infos + zones */}
-            <div>
-              <ScrollReveal direction="left">
-                <h2 className="text-xl font-bold text-navy mb-6">Nos coordonnées</h2>
-                <div className="space-y-4 mb-8">
-                  {infos.map((info) => (
-                    <div key={info.titre} className="flex items-start gap-4 bg-bg-white border border-border rounded-xl p-4">
-                      <span className="text-2xl shrink-0">{info.icon}</span>
-                      <div>
-                        <p className="text-navy font-semibold text-sm">{info.titre}</p>
-                        {info.href ? (
-                          <a href={info.href} className="text-orange font-bold hover:underline text-sm">
-                            {info.val}
-                          </a>
-                        ) : (
-                          <p className="text-text-light text-sm">{info.val}</p>
-                        )}
-                        <p className="text-text-muted text-xs mt-0.5">{info.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+      {/* Split content */}
+      <section className="grid lg:grid-cols-2">
+        {/* Gauche — infos */}
+        <div className="bg-navy-light py-16 md:py-20 px-8 md:px-12 lg:px-16">
+          <ScrollReveal direction="left">
+            <h2 className="text-white font-black text-2xl uppercase tracking-tight mb-8">
+              Nos coordonnées
+            </h2>
 
-                <h3 className="text-base font-bold text-navy mb-3">Zone d&apos;intervention</h3>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {zones.map((z) => (
-                    <span key={z} className="inline-flex items-center gap-1 bg-bg-white border border-border text-navy text-xs font-medium px-3 py-1.5 rounded-full">
-                      <span className="text-orange">📍</span> {z}
-                    </span>
-                  ))}
+            <div className="space-y-6 mb-10">
+              {/* Téléphone */}
+              <a href={`tel:${phoneRaw}`} className="flex items-center gap-4 group">
+                <div className="w-11 h-11 border border-orange/40 flex items-center justify-center shrink-0 group-hover:border-orange group-hover:bg-orange/10 transition-all">
+                  <svg className="w-5 h-5 text-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
                 </div>
-                <p className="text-text-muted text-xs italic">
-                  Et toutes les communes dans un rayon de {zoneDescription}.
-                </p>
+                <div>
+                  <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Téléphone</p>
+                  <p className="text-white font-bold text-xl group-hover:text-orange transition-colors">{phone}</p>
+                  <p className="text-white/30 text-xs mt-0.5">Lun–Sam 7h–19h</p>
+                </div>
+              </a>
 
-                <div className="mt-8 bg-navy rounded-2xl p-6">
-                  <h3 className="text-white font-bold mb-2">Devis gratuit &amp; sans engagement</h3>
-                  <p className="text-white/60 text-sm">
-                    Benoît se déplace sur votre chantier pour évaluer votre projet, vous conseiller et vous remettre un devis clair et détaillé. Gratuit et sans engagement.
-                  </p>
+              {/* Email */}
+              <a href={`mailto:${email}`} className="flex items-center gap-4 group">
+                <div className="w-11 h-11 border border-white/15 flex items-center justify-center shrink-0 group-hover:border-orange group-hover:bg-orange/10 transition-all">
+                  <svg className="w-5 h-5 text-white/40 group-hover:text-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
                 </div>
-              </ScrollReveal>
+                <div>
+                  <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Email</p>
+                  <p className="text-white/80 font-bold text-sm group-hover:text-orange transition-colors">{email}</p>
+                  <p className="text-white/30 text-xs mt-0.5">Réponse sous 24h</p>
+                </div>
+              </a>
+
+              {/* Adresse */}
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 border border-white/15 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-white/40 text-xs uppercase tracking-widest mb-0.5">Siège</p>
+                  <p className="text-white/70 text-sm">{address}</p>
+                  <p className="text-white/30 text-xs mt-0.5">Rayon d&apos;intervention : {zoneDescription}</p>
+                </div>
+              </div>
             </div>
 
-            {/* Formulaire */}
-            <div>
-              <ScrollReveal direction="right">
-                <h2 className="text-xl font-bold text-navy mb-6">Votre demande de devis</h2>
-                <ContactForm />
-              </ScrollReveal>
+            {/* Zones */}
+            <div className="border-t border-white/10 pt-8">
+              <p className="text-white/40 text-xs uppercase tracking-widest mb-4">Zone d&apos;intervention</p>
+              <div className="flex flex-wrap gap-2">
+                {zones.map((z) => (
+                  <span
+                    key={z}
+                    className="inline-flex items-center gap-1.5 border border-white/15 text-white/60 text-xs font-bold px-3 py-1.5 uppercase tracking-wide"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-orange shrink-0" />
+                    {z}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+
+            {/* Garanties */}
+            <div className="mt-10 grid grid-cols-2 gap-5 border-t border-white/10 pt-8">
+              {[
+                { val: "Gratuit", label: "Devis + déplacement" },
+                { val: "24h", label: "Délai de réponse" },
+                { val: "15+", label: "Ans d'expérience" },
+                { val: "Sans engagement", label: "Aucune obligation" },
+              ].map((s) => (
+                <div key={s.label}>
+                  <div className="text-xl font-black text-orange">{s.val}</div>
+                  <div className="text-white/35 text-xs uppercase tracking-wider mt-0.5 leading-tight">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+
+        {/* Droite — formulaire */}
+        <div className="bg-stone-bg py-16 md:py-20 px-8 md:px-12 lg:px-16">
+          <ScrollReveal direction="right">
+            <span className="text-orange text-xs font-bold uppercase tracking-[0.25em] block mb-4">
+              Demande de devis
+            </span>
+            <h2 className="text-navy font-black text-2xl uppercase tracking-tight mb-8">
+              Votre projet
+            </h2>
+            <ContactForm />
+          </ScrollReveal>
         </div>
       </section>
 

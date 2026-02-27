@@ -25,29 +25,35 @@ export default async function RealisationsPage() {
     <main id="main-content" className="min-h-screen">
       <Navbar />
 
-      <section className="bg-navy py-16 md:py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      {/* Hero */}
+      <section className="bg-navy texture-dark py-16 md:py-20 relative overflow-hidden">
+        <div className="hero-diagonal-panel" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal direction="up">
-            <span className="text-orange text-sm font-semibold uppercase tracking-widest">Portfolio</span>
-            <h1 className="text-3xl md:text-5xl font-bold text-white mt-2 mb-4">Nos réalisations</h1>
-            <p className="text-white/70 text-lg max-w-xl mx-auto">
+            <span className="text-orange text-xs font-bold uppercase tracking-[0.25em] block mb-4">
+              Portfolio — Chantiers Nord (59)
+            </span>
+            <h1 className="text-4xl md:text-6xl font-black text-white uppercase leading-none tracking-tight">
+              Nos<br />réalisations
+            </h1>
+            <p className="text-white/50 text-base mt-5 max-w-xl">
               Chaque chantier est unique. Découvrez quelques-unes de nos réalisations dans le Nord.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Filtres catégories */}
-      <section className="py-8 bg-bg border-b border-border">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-wrap gap-2 justify-center">
+      {/* Filtres */}
+      <section className="bg-bg border-b border-border py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap gap-2">
             {cats.map((cat) => (
               <span
                 key={cat}
-                className={`px-4 py-2 rounded-full text-sm font-medium cursor-default ${
+                className={`text-xs font-bold uppercase tracking-wider px-4 py-2 cursor-default transition-colors ${
                   cat === "Tous"
                     ? "bg-navy text-white"
-                    : "bg-bg-white border border-border text-text-light"
+                    : "bg-bg-white border border-border text-text-light hover:border-orange hover:text-orange"
                 }`}
               >
                 {cat}
@@ -59,54 +65,58 @@ export default async function RealisationsPage() {
 
       {/* Galerie */}
       <section className="py-16 md:py-20 bg-bg">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {realisations.map((r, i) => (
-              <ScrollReveal key={r.title} direction="up" delay={i * 80}>
-                <div className="bg-bg-white border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-all group card-hover">
-                  <div className={`${r.color} h-48 flex items-center justify-center relative`}>
-                    <span className="text-white/10 text-8xl font-black">{i + 1}</span>
-                    <div className="absolute top-3 left-3">
-                      <span className="bg-white/20 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {realisations.map((r, i) => {
+              const bgColors = ["bg-navy", "bg-stone", "bg-navy-light", "bg-stone", "bg-navy", "bg-navy-light"];
+              return (
+                <ScrollReveal key={r.title} direction="up" delay={i * 80}>
+                  <div className="realisation-card relative overflow-hidden aspect-[4/3] group cursor-pointer">
+                    {/* Fond */}
+                    <div className={`${bgColors[i % bgColors.length]} w-full h-full flex items-center justify-center`}>
+                      <span className="text-white/8 font-black text-9xl select-none">0{i + 1}</span>
+                    </div>
+
+                    {/* Badge catégorie */}
+                    <div className="absolute top-4 left-4 z-10">
+                      <span className="bg-orange text-white text-xs font-bold px-3 py-1 uppercase tracking-wider">
                         {r.categorie}
                       </span>
                     </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-navy font-bold text-base mb-2 group-hover:text-orange transition-colors">
-                      {r.title}
-                    </h3>
-                    <p className="text-text-light text-sm leading-relaxed mb-3">{r.description}</p>
-                    <div className="flex items-center gap-1 text-text-muted text-xs">
-                      <span>📍</span>
-                      <span>{r.ville}</span>
+
+                    {/* Infos au repos */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 to-transparent group-hover:opacity-0 transition-opacity duration-300">
+                      <span className="text-white/50 text-xs uppercase tracking-widest block mb-1">{r.ville}</span>
+                      <h3 className="text-white font-black text-sm uppercase tracking-wide">{r.title}</h3>
+                    </div>
+
+                    {/* Overlay hover */}
+                    <div className="realisation-overlay absolute inset-0 bg-orange flex flex-col justify-end p-6">
+                      <span className="text-white/60 text-xs uppercase tracking-[0.2em] mb-2">{r.ville}</span>
+                      <h3 className="text-white font-black text-lg uppercase tracking-tight mb-2">{r.title}</h3>
+                      <p className="text-white/75 text-sm leading-relaxed">{r.description}</p>
                     </div>
                   </div>
-                </div>
-              </ScrollReveal>
-            ))}
+                </ScrollReveal>
+              );
+            })}
           </div>
 
+          {/* CTA bottom */}
           <ScrollReveal direction="up" delay={200}>
-            <div className="mt-14 bg-stone-bg border border-border rounded-2xl p-8 text-center">
-              <h2 className="text-xl font-bold text-navy mb-2">
-                Vous avez un projet similaire ?
+            <div className="mt-16 bg-navy py-12 px-8 md:px-12 text-center">
+              <span className="text-orange text-xs font-bold uppercase tracking-[0.25em] block mb-3">
+                Un projet similaire ?
+              </span>
+              <h2 className="text-white font-black text-2xl md:text-3xl uppercase tracking-tight mb-6">
+                Benoît se déplace gratuitement<br />pour évaluer votre chantier
               </h2>
-              <p className="text-text-light text-sm mb-6">
-                Benoît se déplace gratuitement pour évaluer votre chantier et vous remettre un devis.
-              </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-hover text-white font-bold px-7 py-3.5 rounded-xl transition-colors"
-                >
-                  Demander un devis gratuit
+                <Link href="/contact" className="btn btn-fill px-8 py-4 text-xs uppercase tracking-[0.2em]">
+                  <span>Demander un devis gratuit</span>
                 </Link>
-                <a
-                  href={`tel:${phoneRaw}`}
-                  className="inline-flex items-center justify-center gap-2 border-2 border-navy text-navy hover:bg-navy hover:text-white font-bold px-7 py-3.5 rounded-xl transition-colors"
-                >
-                  {phone}
+                <a href={`tel:${phoneRaw}`} className="btn btn-outline-light px-8 py-4 text-xs uppercase tracking-[0.2em]">
+                  <span>{phone}</span>
                 </a>
               </div>
             </div>
