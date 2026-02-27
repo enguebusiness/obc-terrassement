@@ -14,7 +14,7 @@ export type Service = {
   shortDescription: string;
   longDescription: string;
   icon: string;
-  keywords: string[];
+  keywords: readonly string[];
 };
 
 export type Realisation = {
