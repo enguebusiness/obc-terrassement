@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "OBC Maçonnerie intervient à Douai pour vos travaux de construction de maison, rénovation et gros œuvre. Benoît Colin, maçon expert. Devis gratuit.",
   keywords: ["construction maison Douai", "maçon Douai", "rénovation Douai", "gros oeuvre Douai", "maçon rénovation Douai"],
-  alternates: { canonical: "https://obc-terrassement.fr/construction-maison-douai" },
+  alternates: { canonical: "https://obc-maconnerie.fr/construction-maison-douai" },
 };
 
 export default function ConstructionMaisonDouaiPage() {

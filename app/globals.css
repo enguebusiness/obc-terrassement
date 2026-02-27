@@ -1,86 +1,91 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+/* ================================================
+   DA OBC Maçonnerie — Rouge brique + Gris ardoise + Blanc cassé
+   Évoque la brique du Nord, le béton, la pierre, le sérieux artisan
+   ================================================ */
+
 @theme inline {
-  --color-navy: #1B2A4A;
-  --color-navy-light: #2A3D66;
-  --color-navy-dark: #111D36;
+  /* ── Couleur sombre (sections hero, navbar, CTA band) ── */
+  /* Charbon chaud : quasi-noir avec légère tonalité terreuse */
+  --color-navy:       #1C1A18;
+  --color-navy-light: #2E2B28;
+  --color-navy-dark:  #100F0D;
 
-  --color-orange: #E8772E;
-  --color-orange-hover: #D06522;
-  --color-orange-light: #F5A623;
+  /* ── Accent principal : Rouge brique du logo ── */
+  --color-orange:       #8B1A1A;
+  --color-orange-hover: #6B1414;
+  --color-orange-light: #A52424;
 
-  --color-stone: #8B7355;
-  --color-stone-light: #C4A882;
-  --color-stone-bg: #F5F0EA;
+  /* ── Ardoise (gris secondaire du logo) ── */
+  --color-stone:       #6B7B7A;
+  --color-stone-light: #8B9A9A;
+  --color-stone-bg:    #F0EDEA;
 
-  --color-bg: #F7F8FA;
+  /* ── Fonds ── */
+  --color-bg:       #F8F6F4;
   --color-bg-white: #FFFFFF;
-  --color-bg-card: #FFFFFF;
-  --color-bg-muted: #F0F2F5;
+  --color-bg-card:  #FFFFFF;
+  --color-bg-muted: #F0EDEA;
 
-  --color-text: #1A1A2E;
-  --color-text-light: #6B7280;
-  --color-text-muted: #9CA3AF;
+  /* ── Texte ── */
+  --color-text:       #1C1C1C;
+  --color-text-light: #4A4A4A;
+  --color-text-muted: #6B7B7A;
 
-  --color-border: #E5E7EB;
-  --color-border-light: #F3F4F6;
+  /* ── Bordures ── */
+  --color-border:       #DDD8D3;
+  --color-border-light: #EAE7E4;
 
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
+  /* ── Statuts ── */
+  --color-success: #4A7C59;
+  --color-warning: #C9832A;
+  --color-error:   #C0392B;
 
-  --color-primary: #E8772E;
-  --color-primary-hover: #D06522;
+  /* ── Aliases ── */
+  --color-primary:       #8B1A1A;
+  --color-primary-hover: #6B1414;
 
-  --color-dark: #0B0F19;
-  --color-dark-bg: #0B0F19;
-  --color-dark-light: #1A1F2E;
-  --color-dark-lighter: #252A3A;
-  --color-dark-border: #2A2F3F;
-
+  /* ── Typographie ── */
   --font-sans: "Inter", sans-serif;
 }
 
+/* ================================================
+   BASE
+   ================================================ */
 body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Gradient utilities (used by login, admin, candidature pages) */
-.gradient-text {
-  background: linear-gradient(135deg, #6D5EF6, #9D8FF9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-bg {
-  background: linear-gradient(135deg, #6D5EF6, #9D8FF9);
-}
-
-/* Card hover */
+/* ================================================
+   CARD HOVER — ombre teintée brique
+   ================================================ */
 .card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(27, 42, 74, 0.12);
+  box-shadow: 0 12px 32px rgba(139, 26, 26, 0.10);
 }
 
-/* Orange CTA glow */
+/* ================================================
+   CTA PULSE — glow rouge brique
+   ================================================ */
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 16px rgba(232, 119, 46, 0.3);
+    box-shadow: 0 0 16px rgba(139, 26, 26, 0.35);
   }
   50% {
-    box-shadow: 0 0 32px rgba(232, 119, 46, 0.5);
+    box-shadow: 0 0 36px rgba(139, 26, 26, 0.55);
   }
 }
 
@@ -88,13 +93,17 @@ html {
   animation: pulse-glow 2.5s ease-in-out infinite;
 }
 
-/* Selection */
+/* ================================================
+   SÉLECTION DE TEXTE
+   ================================================ */
 ::selection {
-  background: rgba(27, 42, 74, 0.15);
+  background: rgba(139, 26, 26, 0.15);
   color: var(--color-text);
 }
 
-/* Skip to content */
+/* ================================================
+   SKIP TO CONTENT
+   ================================================ */
 .skip-to-content {
   position: absolute;
   left: -9999px;
@@ -112,13 +121,17 @@ html {
   top: 0;
 }
 
-/* Focus visible */
+/* ================================================
+   FOCUS VISIBLE
+   ================================================ */
 *:focus-visible {
   outline: 2px solid var(--color-orange);
   outline-offset: 2px;
 }
 
-/* Scrollbar */
+/* ================================================
+   SCROLLBAR
+   ================================================ */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -133,11 +146,77 @@ html {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-navy);
+  background: var(--color-stone);
 }
 
 /* ================================================
-   HERO ANIMATIONS - Staggered text reveal
+   ACCENT DIAGONALE — élément décoratif hero
+   Évoque une maçonnerie en brique posée en diagonale
+   ================================================ */
+.hero-accent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent 40%, rgba(139, 26, 26, 0.07) 100%);
+  pointer-events: none;
+}
+
+.hero-accent-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, transparent, #8B1A1A 30%, #8B1A1A 70%, transparent);
+  opacity: 0.5;
+}
+
+/* ================================================
+   SECTION LABEL — étiquette catégorie
+   ================================================ */
+.section-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin-bottom: 0.5rem;
+}
+
+.section-label-light {
+  color: rgba(139, 26, 26, 0.75);
+}
+
+/* ================================================
+   BRICK DIVIDER — séparateur rouge brique
+   ================================================ */
+.brick-divider {
+  width: 3rem;
+  height: 3px;
+  background: var(--color-orange);
+  border-radius: 2px;
+}
+
+/* ================================================
+   STAT GLOW — compteur chiffres clés
+   ================================================ */
+@keyframes stat-glow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(139, 26, 26, 0.25);
+  }
+  50% {
+    text-shadow: 0 0 22px rgba(139, 26, 26, 0.45);
+  }
+}
+
+.animate-stat-glow {
+  animation: stat-glow 2.5s ease-in-out infinite;
+}
+
+/* ================================================
+   HERO TEXT ANIMATIONS — staggered reveal
    ================================================ */
 @keyframes hero-text-appear {
   0% {
@@ -171,25 +250,13 @@ html {
    FADE IN ANIMATIONS
    ================================================ */
 @keyframes fade-in-down {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fade-in-up {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in-down {
@@ -203,22 +270,18 @@ html {
 }
 
 /* Animation delays */
-.animation-delay-200 { animation-delay: 200ms; }
-.animation-delay-400 { animation-delay: 400ms; }
-.animation-delay-600 { animation-delay: 600ms; }
-.animation-delay-800 { animation-delay: 800ms; }
+.animation-delay-200  { animation-delay: 200ms; }
+.animation-delay-400  { animation-delay: 400ms; }
+.animation-delay-600  { animation-delay: 600ms; }
+.animation-delay-800  { animation-delay: 800ms; }
 .animation-delay-1000 { animation-delay: 1000ms; }
 
 /* ================================================
-   UNDERLINE GROW ANIMATION
+   UNDERLINE GROW
    ================================================ */
 @keyframes underline-grow {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: 100%;
-  }
+  0%   { width: 0; }
+  100% { width: 100%; }
 }
 
 .animate-underline-grow {
@@ -227,15 +290,11 @@ html {
 }
 
 /* ================================================
-   BOUNCE SLOW (scroll indicator)
+   BOUNCE SLOW
    ================================================ */
 @keyframes bounce-slow {
-  0%, 100% {
-    transform: translate(-50%, 0);
-  }
-  50% {
-    transform: translate(-50%, 8px);
-  }
+  0%, 100% { transform: translate(-50%, 0); }
+  50%       { transform: translate(-50%, 8px); }
 }
 
 .animate-bounce-slow {
@@ -243,126 +302,7 @@ html {
 }
 
 /* ================================================
-   FLOATING ELEMENTS
-   ================================================ */
-@keyframes float-slow {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translateY(-20px) scale(1.1);
-    opacity: 0.7;
-  }
-}
-
-@keyframes float-medium {
-  0%, 100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0.3;
-  }
-  33% {
-    transform: translateY(-15px) translateX(10px);
-    opacity: 0.6;
-  }
-  66% {
-    transform: translateY(-25px) translateX(-5px);
-    opacity: 0.5;
-  }
-}
-
-@keyframes float-fast {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.3;
-  }
-  50% {
-    transform: translateY(-12px) rotate(180deg);
-    opacity: 0.6;
-  }
-}
-
-.animate-float-slow {
-  animation: float-slow 6s ease-in-out infinite;
-}
-
-.animate-float-medium {
-  animation: float-medium 5s ease-in-out infinite;
-}
-
-.animate-float-fast {
-  animation: float-fast 4s ease-in-out infinite;
-}
-
-/* ================================================
-   ROCKET FLAME ANIMATION
-   ================================================ */
-@keyframes flame-flicker {
-  0%, 100% {
-    transform: scaleY(1) scaleX(1);
-    opacity: 0.9;
-  }
-  25% {
-    transform: scaleY(1.1) scaleX(0.95);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scaleY(0.9) scaleX(1.05);
-    opacity: 1;
-  }
-  75% {
-    transform: scaleY(1.05) scaleX(0.97);
-    opacity: 0.85;
-  }
-}
-
-.animate-flame {
-  transform-origin: center top;
-  animation: flame-flicker 0.3s ease-in-out infinite;
-}
-
-/* ================================================
-   PARTICLE ANIMATIONS (rocket trail)
-   ================================================ */
-@keyframes particle-1 {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translateY(8px) scale(0.5);
-    opacity: 0;
-  }
-}
-
-@keyframes particle-2 {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translateY(12px) scale(0.3);
-    opacity: 0;
-  }
-}
-
-@keyframes particle-3 {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translateY(10px) scale(0.4);
-    opacity: 0;
-  }
-}
-
-.animate-particle-1 { animation: particle-1 1.2s ease-in-out infinite; }
-.animate-particle-2 { animation: particle-2 1.5s ease-in-out infinite 0.2s; }
-.animate-particle-3 { animation: particle-3 1.3s ease-in-out infinite 0.4s; }
-
-/* ================================================
-   SCROLL REVEAL ANIMATIONS
+   SCROLL REVEAL
    ================================================ */
 .scroll-reveal-up,
 .scroll-reveal-down,
@@ -374,44 +314,47 @@ html {
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.scroll-reveal-up {
-  transform: translateY(40px);
-}
+.scroll-reveal-up    { transform: translateY(40px); }
+.scroll-reveal-down  { transform: translateY(-40px); }
+.scroll-reveal-left  { transform: translateX(-40px); }
+.scroll-reveal-right { transform: translateX(40px); }
+.scroll-reveal-fade  { transform: scale(0.95); }
 
-.scroll-reveal-down {
-  transform: translateY(-40px);
-}
-
-.scroll-reveal-left {
-  transform: translateX(-40px);
-}
-
-.scroll-reveal-right {
-  transform: translateX(40px);
-}
-
-.scroll-reveal-fade {
-  transform: scale(0.95);
-}
-
-/* Revealed state */
 .scroll-revealed {
   opacity: 1 !important;
   transform: translateY(0) translateX(0) scale(1) !important;
 }
 
 /* ================================================
-   ANIMATED COUNTER GLOW
+   TEXTURE BÉTON — overlay sur sections sombres
+   Subtile granularité qui évoque le béton brut
    ================================================ */
-@keyframes stat-glow {
-  0%, 100% {
-    text-shadow: 0 0 10px rgba(232, 119, 46, 0.3);
-  }
-  50% {
-    text-shadow: 0 0 20px rgba(232, 119, 46, 0.6);
-  }
+.texture-dark {
+  position: relative;
 }
 
-.animate-stat-glow {
-  animation: stat-glow 2s ease-in-out infinite;
+.texture-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.texture-dark > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================================
+   GRADIENT UTILITIES (legacy — non utilisé OBC)
+   ================================================ */
+.gradient-text {
+  background: linear-gradient(135deg, #8B1A1A, #C0392B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "OBC Maçonnerie intervient à Flines-lès-Raches pour vos travaux de construction, rénovation et gros œuvre. Benoît Colin, maçon expert. Devis gratuit.",
   keywords: ["maçon Flines-lès-Raches", "construction Flines Raches", "rénovation Flines Raches", "maçon Flines Nord"],
-  alternates: { canonical: "https://obc-terrassement.fr/macon-flines-lez-raches" },
+  alternates: { canonical: "https://obc-maconnerie.fr/macon-flines-lez-raches" },
 };
 
 export default function MaconFlinesPage() {

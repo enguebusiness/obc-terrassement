@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "OBC Maçonnerie intervient à Orchies pour vos travaux de construction de maison, rénovation et gros œuvre. Benoît Colin, maçon expert. Devis gratuit.",
   keywords: ["construction maison Orchies", "maçon Orchies", "rénovation Orchies", "gros oeuvre Orchies"],
-  alternates: { canonical: "https://obc-terrassement.fr/construction-maison-orchies" },
+  alternates: { canonical: "https://obc-maconnerie.fr/construction-maison-orchies" },
 };
 
 export default function ConstructionMaisonOrchiesPage() {

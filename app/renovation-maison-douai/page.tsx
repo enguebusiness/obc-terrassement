@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Rénovation de maison et appartement à Douai. OBC Maçonnerie, maçon expert en rénovation dans le Nord (59). Devis gratuit.",
   keywords: ["rénovation maison Douai", "maçon rénovation Douai", "rénovation appartement Douai", "travaux rénovation Douai"],
-  alternates: { canonical: "https://obc-terrassement.fr/renovation-maison-douai" },
+  alternates: { canonical: "https://obc-maconnerie.fr/renovation-maison-douai" },
 };
 
 export default function RenovationMaisonDouaiPage() {

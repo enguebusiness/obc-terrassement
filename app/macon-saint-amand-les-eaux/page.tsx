@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "OBC Maçonnerie intervient à Saint-Amand-les-Eaux pour vos travaux de construction, rénovation, assainissement et gros œuvre. Devis gratuit.",
   keywords: ["maçon Saint-Amand-les-Eaux", "construction Saint-Amand", "rénovation Saint-Amand les Eaux", "maçon Saint-Amand Nord"],
-  alternates: { canonical: "https://obc-terrassement.fr/macon-saint-amand-les-eaux" },
+  alternates: { canonical: "https://obc-maconnerie.fr/macon-saint-amand-les-eaux" },
 };
 
 export default function MaconSaintAmandPage() {

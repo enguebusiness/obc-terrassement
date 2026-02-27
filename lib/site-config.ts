@@ -8,7 +8,7 @@ export const siteConfig = {
   dirigeant: "Benoît Colin",
   phone: "06 74 45 30 89",
   phoneRaw: "0674453089",
-  email: "contact@obc-terrassement.fr",
+  email: "contact@obc-maconnerie.fr",
   address: "221 Route de Saint-Amand, 59310 Mouchin",
   addressLine1: "221 Route de Saint-Amand",
   addressLocality: "Mouchin",
@@ -16,7 +16,7 @@ export const siteConfig = {
   addressRegion: "Hauts-de-France",
   addressCountry: "FR",
   siren: "531827871",
-  url: "https://obc-terrassement.fr",
+  url: "https://obc-maconnerie.fr",
 
   zones: [
     "Orchies",

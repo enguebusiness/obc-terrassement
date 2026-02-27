@@ -192,7 +192,7 @@ export default function ContactForm() {
       </div>
 
       {error && (
-        <p className="text-error text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+        <p className="text-error text-sm bg-stone-bg border border-error/30 rounded-xl px-4 py-3">
           {error}
         </p>
       )}

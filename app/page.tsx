@@ -113,20 +113,24 @@ export default async function HomePage() {
       <Navbar />
 
       {/* ── SECTION 1 — HERO ── */}
-      <section className="relative bg-navy overflow-hidden pt-20 pb-24 md:pt-28 md:pb-32">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%)", backgroundSize: "20px 20px" }} />
+      <section className="relative bg-navy overflow-hidden texture-dark pt-20 pb-24 md:pt-28 md:pb-32">
+        {/* Accent diagonal brique */}
+        <div className="hero-accent" />
+        <div className="hero-accent-line" style={{ right: "30%" }} />
+
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6">
-            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-white/80 text-sm">{hero.badge}</span>
+          <div className="inline-flex items-center gap-2 bg-white/8 border border-white/15 rounded-full px-4 py-1.5 mb-8">
+            <span className="w-1.5 h-1.5 bg-orange rounded-full" />
+            <span className="text-white/70 text-xs font-medium tracking-wide uppercase">{hero.badge}</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
-            Maçon &amp; Constructeur<br />
-            <span className="text-orange">dans le Nord</span>
+          <h1 className="text-5xl md:text-7xl font-black text-white leading-none tracking-tight mb-6">
+            Maçon &amp;<br />
+            <span className="text-orange">Constructeur</span><br />
+            <span className="text-white/60 text-3xl md:text-4xl font-bold tracking-normal">dans le Nord (59)</span>
           </h1>
 
-          <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto mb-8">{hero.subtitle}</p>
+          <p className="text-white/60 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">{hero.subtitle}</p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-hover text-white font-bold px-8 py-4 rounded-xl text-base transition-colors pulse-glow">
@@ -135,16 +139,16 @@ export default async function HomePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
-            <Link href="/realisations" className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors border border-white/20">
+            <Link href="/realisations" className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/8 text-white font-semibold px-8 py-4 rounded-xl text-base transition-colors border border-white/25">
               {hero.ctaSecondary}
             </Link>
           </div>
 
-          <div className="mt-14 grid grid-cols-3 gap-6 max-w-lg mx-auto border-t border-white/10 pt-10">
+          <div className="mt-16 grid grid-cols-3 gap-8 max-w-md mx-auto border-t border-white/10 pt-10">
             {hero.stats.map((s) => (
               <div key={s.label} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-orange">{s.val}</div>
-                <div className="text-white/50 text-xs mt-1">{s.label}</div>
+                <div className="text-3xl md:text-4xl font-black text-orange animate-stat-glow">{s.val}</div>
+                <div className="text-white/40 text-xs mt-1 uppercase tracking-wider">{s.label}</div>
               </div>
             ))}
           </div>

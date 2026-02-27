@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Nos Services | Construction, Rénovation, Assainissement",
   description:
     "Tous les services d'OBC Maçonnerie : construction de maison, rénovation, assainissement, création d'accès et démolition dans le Nord (59). Devis gratuit.",
-  alternates: { canonical: "https://obc-terrassement.fr/services" },
+  alternates: { canonical: "https://obc-maconnerie.fr/services" },
 };
 
 export default async function ServicesPage() {

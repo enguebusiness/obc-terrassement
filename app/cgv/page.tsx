@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Conditions Générales de Vente | OBC Maçonnerie",
   description:
     "Conditions générales de vente d'OBC Maçonnerie — Benoît Colin, maçon à Mouchin (59310). Prestations de construction, rénovation et gros œuvre.",
-  alternates: { canonical: "https://obc-terrassement.fr/cgv" },
+  alternates: { canonical: "https://obc-maconnerie.fr/cgv" },
   robots: { index: false, follow: false },
 };
 
